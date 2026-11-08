@@ -32,7 +32,7 @@ Kao operater, želim da otvorim jedan ekran i odmah vidim gde je koja pošiljka,
 
 **Posao i korisnik.** Operater ceo dan za desktop računarom. Danas filtrira Google Sheet po boji iz legende ("neisporučeno"), proverava kod po kod na BEX portalu i ručno menja boju reda. Konzola boji sama, a ekran služi tom obilasku: vidi otvorene pošiljke po statusu, uoči šta je zapelo i prođe ih jednu po jednu. Mod: Operate.
 
-**Pravac: Linija rute, uprošćen.** Znak SV je linija rute sa čvorom na krajevima, a put pošiljke je ta ista linija sa stanicama. Izabrano od 5 skica (`.impeccable/mocks/decision/challenger-transit.html`). Vlasnik je tražio manje detalja i da ne bude zbunjujuće, zato:
+**Pravac: Linija rute, uprošćen.** Znak SV je linija rute sa čvorom na krajevima, a put pošiljke je ta ista linija sa stanicama. Izabrano od 5 skica (`.impeccable/mocks/decision/`). Konačne skice: `.impeccable/mocks/linija-rute-operater.html` i `.impeccable/mocks/linija-rute-klijent.html`. Vlasnik je tražio manje detalja i da ne bude zbunjujuće, zato:
 - **Linija rute samo u detalju.** Istorija pošiljke je vertikalna linija; svaki događaj je stanica, trenutna je naglašena, neuspeli pokušaj ima žutu stanicu sa "!". Pošto status može da ide unazad (ADR-009), linija prati događaje po vremenu, a ne fiksne faze.
 - **U tabeli nema male rute po redu.** Status je oznaka: kružni čvor u boji statusa + ikonica + tekst.
 - **Navigacija je obična lista**, bez stanica i linija.
@@ -40,7 +40,7 @@ Kao operater, želim da otvorim jedan ekran i odmah vidim gde je koja pošiljka,
 
 **Raspored.** Levo navigacija (Pošiljke, Upozorenja sa brojem, Uvoz, Otkupi, Podešavanja). Iznad tabele: pretraga (broj pošiljke, primalac, telefon), čipovi statusa sa brojevima, filteri Kurir, Datum, Ima otkup, dugme "Izvezi u Excel", oznaka "Ažurirano pre N min". Tabela, a desno panel detalja; lista ostaje vidljiva, ↑ ↓ prelazi na sledeću pošiljku.
 
-**Kolone** (potvrdio vlasnik): Broj pošiljke + kurir · Status · Primalac · Mesto · Telefon · Otkup · Poslednja promena (vreme + opis događaja, npr. razlog neuspele dostave).
+**Kolone** (potvrdio vlasnik): Broj pošiljke + kurir · Status · Primalac (telefon ispod imena) · Mesto · Otkup · Poslednja promena (vreme + opis događaja, npr. razlog neuspele dostave).
 
 **Stanja.** Zaglavljeno (oznaka "Zaglavljeno N d"), druga neuspela dostava ("Pozvati kupca" u detalju), završene (Isporučeno, Vraćeno) su prigušene, prazan rezultat filtera, učitavanje, sinhronizacija nije uspela. Raspon: desetine do 10.000+ pošiljki, gusta tabela.
 
