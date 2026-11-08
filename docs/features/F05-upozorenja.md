@@ -29,7 +29,7 @@ Problematične pošiljke se same izdvajaju, da operater ne traži ručno šta je
 - [ ] Bedž sa brojem u navigaciji
 
 ## Otvorena pitanja
-- Šta je "kraj dana" za "Nije preuzeto"? (npr. 18:00 po firmi)
+- Šta je "kraj dana" za "Nije preuzeto"? **Odgovor vlasnika proizvoda (08.11.2026.):** kurir nekad ne skenira paket, pa pošiljka izgleda nepreuzeto do sledećeg skeniranja. Pratimo samo statuse sa API-ja. Predlog: upozorenje "Nije preuzeto" izbaciti iz MVP-a, ostaju "Neuspela dostava" i "Zaglavljeno" (Velja odlučuje, vidi `docs/PILOT-PRIMERI.md`).
 
 ## Dnevnik
 | Datum | Ko | Šta |
