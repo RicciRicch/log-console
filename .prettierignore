@@ -1,0 +1,11 @@
+node_modules
+dist
+.next
+coverage
+pnpm-lock.yaml
+supabase/.temp
+tools/bex-probe/out
+**/fixtures/**
+*.md
+*.png
+tools/bex-probe.mjs
