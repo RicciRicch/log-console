@@ -9,3 +9,4 @@ tools/bex-probe/out
 *.md
 *.png
 tools/bex-probe.mjs
+.impeccable
