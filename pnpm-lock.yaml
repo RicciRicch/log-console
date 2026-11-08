@@ -84,13 +84,12 @@ importers:
       pg-boss:
         specifier: ^12.38.1
         version: 12.38.1(@opentelemetry/api@1.10.0)
-      zod:
-        specifier: ^4.6.7
-        version: 4.6.7
-    devDependencies:
       tsx:
         specifier: ^4.23.15
         version: 4.23.15
+      zod:
+        specifier: ^4.6.7
+        version: 4.6.7
 
   packages/couriers/bex:
     dependencies:
