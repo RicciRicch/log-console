@@ -55,3 +55,10 @@ Format: kontekst → odluka → posledice. Nova odluka ide na dno sa sledećim b
 **Kontekst:** Na stvarnim BEX podacima kurir je upisivao "Dostavljeno", pa ga posle nekoliko minuta ispravljao u neuspelu dostavu, a poništavao je i "Vratiti pošiljaocu" (F03). Ako bi se status računao kao "najdalji dostignuti" ili se ne bi menjao posle `delivered`, konzola bi prikazivala pogrešan status.
 **Odluka:** `shipments.status` je uvek jedinstveni status poslednjeg događaja po vremenu kod kurira (`occurred_at`). Kad dva događaja imaju isto vreme, odlučuje redosled u odgovoru kurira. Status može da ide i "unazad" (npr. `delivered` → `failed_delivery`).
 **Posledice:** Logika ne pretpostavlja da statusi samo napreduju. UI, upozorenja (F05) i Google Sheet (F08) moraju da podnesu povratak statusa. Kada pošiljka postaje konačna (`is_final`) je posebno pitanje, otvoreno u F04.
+
+## ADR-010: Klijentska strana (pod-klijenti) ulazi u MVP
+**Status:** Predlog (Dule, 08.11.2026.; čeka Uroša i Veljata)
+**Kontekst:** Vlasnik proizvoda kaže da je cilj da firme čije pakete šaljemo (klijenti operatera, npr. web shopovi) vide svoje pošiljke same, umesto da pitaju operatera ili gledaju kurirske portale. U `docs/MVP.md` su pod-klijenti trenutno "kasnije", a F01 ih isključuje.
+**Odluka (predlog):** U MVP ulazi klijentska strana: klijent se prijavljuje i vidi samo svoje pošiljke i otkupe, bez izmena. Operaterska strana ostaje glavni ekran.
+**Posledice:** Model podataka i RLS moraju da razlikuju firmu-operatera i njene klijente (npr. `client_id` na pošiljci i uloga `client`), što menja F01 i F02 (uvoz mora da zna kom klijentu pripada red). Kad se prihvati: ažurirati `docs/MVP.md`, F01 i F09.
+
