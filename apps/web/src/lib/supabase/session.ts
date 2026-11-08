@@ -2,7 +2,17 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { supabaseEnv } from './env';
 
-/** Osvežava Supabase sesiju (kolačiće) na svakom zahtevu. Poziva je src/proxy.ts. */
+/** Rute koje se otvaraju i bez prijave. */
+const PUBLIC_PATHS = ['/prijava', '/auth'];
+
+function isPublic(pathname: string) {
+  return PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+}
+
+/**
+ * Osvežava Supabase sesiju (kolačiće) na svakom zahtevu i šalje neprijavljene na /prijava.
+ * Poziva je src/proxy.ts. Prava zaštita podataka je i dalje RLS u bazi.
+ */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
   const { url, anonKey } = supabaseEnv();
@@ -25,7 +35,20 @@ export async function updateSession(request: NextRequest) {
   });
 
   // Ne ubacivati kod između createServerClient i getUser (preporuka @supabase/ssr)
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { pathname, search } = request.nextUrl;
+  if (!user && !isPublic(pathname)) {
+    const login = request.nextUrl.clone();
+    login.pathname = '/prijava';
+    login.search = pathname === '/' ? '' : `?sledece=${encodeURIComponent(pathname + search)}`;
+    const redirect = NextResponse.redirect(login);
+    // prenesi osvežene kolačiće i na preusmerenje
+    for (const cookie of response.cookies.getAll()) redirect.cookies.set(cookie);
+    return redirect;
+  }
 
   return response;
 }

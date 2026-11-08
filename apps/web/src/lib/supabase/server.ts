@@ -1,5 +1,6 @@
 import 'server-only';
 
+import type { Database } from '@konzola/shared';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { supabaseEnv } from './env';
@@ -12,7 +13,7 @@ export async function createClient() {
   const cookieStore = await cookies();
   const { url, anonKey } = supabaseEnv();
 
-  return createServerClient(url, anonKey, {
+  return createServerClient<Database>(url, anonKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -29,3 +30,5 @@ export async function createClient() {
     },
   });
 }
+
+export type ServerClient = Awaited<ReturnType<typeof createClient>>;
