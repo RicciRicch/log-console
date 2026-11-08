@@ -1,0 +1,17 @@
+{
+  "name": "@konzola/courier-bex",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@konzola/couriers-core": "workspace:*",
+    "@konzola/shared": "workspace:*",
+    "zod": "^4.6.7"
+  }
+}

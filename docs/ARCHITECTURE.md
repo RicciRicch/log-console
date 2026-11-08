@@ -35,26 +35,44 @@ docs/
 3. **Kurirski moduli:** pričaju sa API-jem kurira i prevode njegove statuse u naše.
 4. **Izlazi:** web aplikacija, Google Sheet, PDF/Excel specifikacije.
 
-## Interfejs kurira (skica)
+## Interfejs kurira
+
+Kod je u `packages/couriers/core/src/index.ts`, ovo je sažetak.
 
 ```ts
-// packages/shared
+// @konzola/shared
 type UnifiedStatus =
   | 'created' | 'in_transit' | 'failed_delivery'
   | 'delivered' | 'returning' | 'returned';
+function pickCurrentStatus(events): UnifiedStatus | null; // ADR-009
 
-// packages/couriers/core (UnifiedStatus se uvozi iz packages/shared)
+// @konzola/couriers-core
+interface CourierEvent {
+  rawStatus: string;          // šifra kurira, npr. BEX "11"
+  rawReason: string | null;   // razlog izuzetka, npr. BEX reasonCode "145"
+  status: UnifiedStatus | null; // null = nepoznata šifra (adapter je loguje)
+  occurredAt: Date;           // UTC
+  description: string;
+  location: string | null;
+}
+
+type CourierStatusResult =
+  | { trackingNumber; ok: true; events: CourierEvent[]; currentStatus: UnifiedStatus | null }
+  | { trackingNumber; ok: false; error: { kind: 'not_found' | 'unavailable' | 'invalid_response'; message } };
+
 interface CourierAdapter {
-  code: 'bex' | string;
-  getStatuses(trackingNumbers: string[], creds: CourierCredentials): Promise<CourierStatus[]>;
-  mapStatus(raw: CourierStatus): UnifiedStatus;
+  code: string;
+  getStatuses(trackingNumbers, creds: { token }, options?: { signal }): Promise<CourierStatusResult[]>;
   // kasnije: createShipments, getLabels, getCodPayments
 }
+
+class CourierAuthError extends Error {} // loš ključ: worker zaustavlja posao za tu firmu
 ```
 
-Jedinstveni statusi žive u `packages/shared`, jer ih koriste i jezgro i web, a oni ne smeju da zavise od kurirskih paketa.
-
-`CourierStatus` nosi bar sirovu šifru, razlog neuspeha (ako postoji) i vreme događaja kod kurira, da bi F04 mogao da razlikuje uzastopne neuspele pokušaje.
+- Jedinstveni statusi žive u `packages/shared`, jer ih koriste i jezgro i web, a oni ne smeju da zavise od kurirskih paketa.
+- Adapter vraća događaje koji su već mapirani, pa jezgro nikad ne vidi šifre kurira osim kao `rawStatus`/`rawReason` za čuvanje u `shipment_events`.
+- Greška jedne pošiljke dolazi kao `ok: false`, a ne kao izuzetak. Izuzetak je samo `CourierAuthError`.
+- Paketi su čist TypeScript bez build koraka (`exports` pokazuje na `src/index.ts`). Worker i Next.js ih transpiluju sami.
 
 ## Model podataka (skica)
 
