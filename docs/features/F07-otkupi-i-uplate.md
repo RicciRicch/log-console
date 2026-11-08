@@ -16,8 +16,12 @@ Za svaki otkup se zna gde je novac: kod kupca, kod kurira ili isplaćen klijentu
 - [ ] Samo admin može da označi isplatu, a svaka isplata je u audit logu
 - [ ] Specifikacija sadrži broj pošiljke, primaoca, iznos i ukupno
 
+## Tehničke beleške
+- `cod_payments`: jedan red po stavci iz izveštaja kurira. Unique ključ sprečava duplikate pri ponovnom uvozu (predlog u `ARCHITECTURE.md`, potvrditi kad stigne primer izveštaja).
+- Nespareni red ostaje u `cod_payments` sa `shipment_id = null` i razlogom u `match_error`.
+
 ## Zadaci
-- [ ] Tabele `cod_items`, `payouts`
+- [ ] Tabele `cod_payments`, `cod_items`, `payouts`
 - [ ] Parser BEX izveštaja (treba primer fajla)
 - [ ] Posao `match-cod-payments`
 - [ ] Ekran otkupa po fazama + zbirovi

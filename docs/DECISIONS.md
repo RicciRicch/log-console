@@ -38,8 +38,14 @@ Format: kontekst → odluka → posledice. Nova odluka ide na dno sa sledećim b
 **Odluka:** Izveštaj se uvozi kao fajl sa portala. Sparivanje je isto kao da je došao sa API-ja.
 **Posledice:** Jedan ručni korak dnevno dok BEX ne ponudi API.
 
-## ADR-007: Next.js za web, Tauri kasnije
-**Status:** Prihvaćeno
+## ADR-007: Next.js za web
+**Status:** Prihvaćeno (dopunjuje ADR-001)
 **Kontekst:** Tim želi Next.js. Tauri ne pokreće Next.js server, nego samo statičke fajlove.
 **Odluka:** Web je Next.js (App Router) na Vercel-u. Kad dođe Tauri, desktop aplikacija otvara hostovanu web adresu (ne pravi se statički export), a Tauri dodaje samo ono što web ne može (npr. direktna štampa nalepnica).
 **Posledice:** Slobodno se koriste Server Components, Server Actions i Route Handlers. Jedan kod za web i desktop. Desktop traži internet, što je ionako potrebno jer su podaci na serveru.
+
+## ADR-008: Unos kurirskog API ključa preko `SECURITY DEFINER` funkcije
+**Status:** Predlog
+**Kontekst:** Administrator unosi API ključ kurira u web aplikaciji (F01), a ključ mora da završi u Supabase Vault-u. `service_role` ključ ne sme u `apps/web`, a običan korisnik nema pravo da piše u Vault.
+**Odluka:** U bazi postoji funkcija `set_courier_secret(tenant_id, courier_code, secret)` (`SECURITY DEFINER`, `search_path` zaključan). Funkcija proverava da je pozivalac `admin` te firme, upisuje ili menja tajnu u Vault-u, u `courier_accounts` čuva `vault_secret_id` i `secret_last4`, i piše u `audit_log`. Web je poziva iz Server Action-a sa sesijom korisnika. Čitanje dešifrovane tajne ostaje samo worker-u (`service_role`). Ne postoji funkcija koja vraća ključ u web.
+**Posledice:** Web nikad ne vidi ceo ključ posle unosa, prikaz `••••1234` ide iz `secret_last4`. Funkcija mora da ima SQL test: operater i korisnik druge firme dobijaju grešku. `EXECUTE` dozvola samo za `authenticated`, ne za `anon`.
