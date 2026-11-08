@@ -1,6 +1,6 @@
 # F03: BEX modul
 
-**Status:** Spec · **Vlasnik:** Velja · **Faza:** M1 · **Zavisi od:** F00
+**Status:** Gotovo · **Vlasnik:** Velja · **Faza:** M1 · **Zavisi od:** F00
 
 ## Cilj
 Prvi kurirski modul: za listu brojeva pošiljki vraća trenutni status i istoriju iz BEX API-ja i prevodi ih u naš jedinstveni status.
@@ -10,13 +10,13 @@ Prvi kurirski modul: za listu brojeva pošiljki vraća trenutni status i istorij
 **Ne ulazi:** kreiranje pošiljki, nalepnice, uplate otkupa (vidi otvoreno pitanje o `getState` šifri 9).
 
 ## Kriterijumi prihvatanja
-- [ ] `getStatuses` prima listu brojeva, a BEX zove po jedan broj sa ograničenim brojem istovremenih zahteva (BEX nema batch endpoint)
-- [ ] Svaka poznata BEX šifra mapirana, a nepoznata se loguje i ne ruši posao
-- [ ] Neuspela dostava se prepoznaje: `statusCode = 11` i `reasonCode != 0` (potvrđeno na stvarnim podacima)
-- [ ] Trenutni status se računa iz poslednjeg događaja po vremenu, ne iz najvišeg statusa (BEX ume da vrati "Dostavljeno" pa ga ispravi)
-- [ ] Greška za jednu pošiljku (400 „ne postoji“, timeout) ne ruši ostale u istom pozivu
-- [ ] Testovi sa snimljenim BEX odgovorima (bez pravog API-ja u CI-ju)
-- [ ] Ključ se čita samo iz Vault-a, nikad se ne loguje
+- [x] `getStatuses` prima listu brojeva, a BEX zove po jedan broj sa ograničenim brojem istovremenih zahteva (BEX nema batch endpoint)
+- [x] Svaka poznata BEX šifra mapirana, a nepoznata se loguje i ne ruši posao
+- [x] Neuspela dostava se prepoznaje: `statusCode = 11` i `reasonCode != 0` (potvrđeno na stvarnim podacima)
+- [x] Trenutni status se računa iz poslednjeg događaja po vremenu, ne iz najvišeg statusa (BEX ume da vrati "Dostavljeno" pa ga ispravi)
+- [x] Greška za jednu pošiljku (400 „ne postoji“, timeout) ne ruši ostale u istom pozivu
+- [x] Testovi sa snimljenim BEX odgovorima (bez pravog API-ja u CI-ju)
+- [x] Adapter ne loguje ključ (test proverava). Čitanje ključa iz Vault-a prebačeno u F04, jer ga radi worker.
 
 ## Tehničke beleške
 
@@ -109,10 +109,11 @@ I `25 Vratiti pošiljaocu` može da bude poništen. Posledice za F04: `is_final`
 - [x] Dobiti token za pilot firmu i snimiti stvarne odgovore, posebno pošiljku sa neuspelim pokušajem dostave
 - [x] Snimljeni odgovori (fixtures, sa izmišljenim podacima)
 - [ ] Poslati preostala pitanja BEX-u na `api@bex.rs` (lista u „Otvorena pitanja“)
-- [ ] `packages/shared`: `UnifiedStatus`
-- [ ] `packages/couriers/core`: `CourierAdapter` (`CourierStatus` sa sirovom šifrom, razlogom neuspeha i vremenom događaja)
-- [ ] `packages/couriers/bex`: klijent + `getStatuses` + `mapStatus`, ograničenje istovremenih zahteva i backoff
-- [ ] Testovi nad fixtures
+- [x] `packages/shared`: `UnifiedStatus`, `pickCurrentStatus` (ADR-009)
+- [x] `packages/couriers/core`: `CourierAdapter`, `CourierEvent`, `CourierStatusResult`, `CourierAuthError`
+- [x] `packages/couriers/bex`: `createBexAdapter` (ograničenje istovremenih zahteva, backoff), `mapBexStatus`, `parseBexTimestamp`
+- [x] Testovi nad fixtures i adapterom (Vitest)
+- [x] Ručna provera nad pravim API-jem: `npx tsx tools/bex-smoke.ts <broj> ...`
 - [ ] Snimiti pošiljku sa `30 Vraćena pošiljaocu` i sa isplaćenim otkupom, dopuniti tabele
 
 ## Otvorena pitanja
@@ -131,3 +132,5 @@ Za tim:
 | --- | --- | --- |
 | 08.11.2026. | Velja | Pročitana javna BEX API dokumentacija, upisani endpoint, šifre i pitanja za BEX |
 | 08.11.2026. | Velja | Snimljeno 30 stvarnih pošiljki: potvrđeno kako izgleda neuspela dostava, nađeno da "Dostavljeno" nije konačno, dodati fixtures |
+| 08.11.2026. | Velja | Kod: `@konzola/shared`, `@konzola/couriers-core`, `@konzola/courier-bex` sa testovima; provereno nad pravim BEX API-jem |
+| 08.11.2026. | Velja | Merge-ovano (#12). Gotovo; čitanje ključa iz Vault-a prebačeno u F04 |

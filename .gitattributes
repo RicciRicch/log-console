@@ -1,0 +1,7 @@
+# Svi tekstualni fajlovi u repou i u radnoj kopiji koriste LF (Prettier endOfLine: lf),
+# i na Windows-u sa core.autocrlf=true.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary

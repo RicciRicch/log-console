@@ -27,6 +27,7 @@ Konzola sama, bez klikanja, drži statuse svih aktivnih pošiljki ažurnim i ču
 
 ## Zadaci
 - [ ] Postavljanje pg-boss u worker-u
+- [ ] Čitanje BEX ključa iz Vault-a po firmi (ADR-008), ključ se nikad ne loguje (preuzeto iz F03)
 - [ ] Cron posao i posao po firmi
 - [ ] Upis `shipment_events` + ažuriranje `shipments.status`, `last_status_at`, `is_final`
 - [ ] Retry i backoff

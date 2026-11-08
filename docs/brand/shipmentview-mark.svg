@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="270 110 1000 560" role="img" aria-label="ShipmentView">
+  <!-- shortcut: ručno precrtan znak iz PNG logoa, zameniti originalnim vektorom ako dizajner ima izvorni fajl -->
+  <g fill="none" stroke="#4A0099" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="92" d="M 420 581 H 660 A 88 88 0 0 0 660 405 H 540 A 83 83 0 0 1 540 239 H 745 L 972 590 L 1150 232"/>
+    <circle stroke-width="36" cx="360" cy="577" r="60"/>
+    <circle stroke-width="36" cx="1176" cy="193" r="60"/>
+  </g>
+</svg>

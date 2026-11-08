@@ -1,6 +1,6 @@
 # F00: Setup repoa, baze i deploy-a
 
-**Status:** Spec · **Vlasnik:** Uroš · **Faza:** M0 · **Zavisi od:** —
+**Status:** U radu · **Vlasnik:** Uroš · **Faza:** M0 · **Zavisi od:** —
 
 ## Cilj
 Prazan, ali ispravan projekat na kom sva trojica mogu odmah da rade, sa lokalnom bazom i automatskim deploy-em.
@@ -33,3 +33,4 @@ Prazan, ali ispravan projekat na kom sva trojica mogu odmah da rade, sa lokalnom
 ## Dnevnik
 | Datum | Ko | Šta |
 | --- | --- | --- |
+| 08.11.2026. | Uroš | Osnova monorepa: pnpm workspaces, `tsconfig.base.json`, Vitest (prvi deo F00, da Velja može da radi u `packages/`) |

@@ -1,0 +1,2 @@
+-- Seed podaci: samo izmišljeni podaci, nikad pravi kupci.
+-- Popunjava se u grani feat/F01-seed-tipovi.
