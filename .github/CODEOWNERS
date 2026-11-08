@@ -1,0 +1,12 @@
+# Zameniti placeholder-e pravim GitHub korisničkim imenima.
+# Vlasnik dela automatski dobija zahtev za review.
+
+/supabase/            @UROS_GITHUB
+/apps/worker/         @VELJA_GITHUB
+/packages/couriers/   @VELJA_GITHUB
+/packages/shared/     @VELJA_GITHUB @UROS_GITHUB
+/apps/web/            @DULE_GITHUB
+/PRODUCT.md           @DULE_GITHUB
+/DESIGN.md            @DULE_GITHUB
+/CLAUDE.md            @UROS_GITHUB @VELJA_GITHUB @DULE_GITHUB
+/docs/DECISIONS.md    @UROS_GITHUB @VELJA_GITHUB @DULE_GITHUB
