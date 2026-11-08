@@ -12,6 +12,7 @@ Konzola sama, bez klikanja, drži statuse svih aktivnih pošiljki ažurnim i ču
 ## Kriterijumi prihvatanja
 - [ ] Status aktivne pošiljke nije stariji od 60 minuta
 - [ ] Isporučene i vraćene pošiljke (`is_final`) se više ne proveravaju, ali tek posle perioda čekanja (BEX ume da ispravi "Dostavljeno", vidi F03)
+- [ ] Trenutni status je status poslednjeg događaja po vremenu, i može da se vrati unazad (ADR-009)
 - [ ] Novi događaj se upisuje kad se promeni sirovi status kurira ili razlog neuspeha, ne samo jedinstveni status (dva uzastopna neuspela pokušaja su dva događaja)
 - [ ] Isti odgovor kurira obrađen dva puta ne pravi duplikat događaja
 - [ ] Pad kurirskog API-ja ne ruši posao: ponovni pokušaj sa pauzom, greška vidljiva u logu
@@ -22,7 +23,7 @@ Konzola sama, bez klikanja, drži statuse svih aktivnih pošiljki ažurnim i ču
 - Posle upisa okida `evaluate-alerts` (F05) i `sync-google-sheet` (F08)
 - Događaj je nov ako se razlikuje bar jedno od: `raw_status`, `raw_reason`, `occurred_at` (vreme događaja kod kurira, ako ga API vraća). Unique `NULLS NOT DISTINCT` na `(shipment_id, raw_status, raw_reason, occurred_at)` čuva od duplikata pri ponovljenom pollingu.
 - F05 broji neuspele pokušaje iz `shipment_events`, zato se nijedan pokušaj ne sme "progutati".
-- `shipments.status` = status poslednjeg događaja po vremenu (pa po redosledu u odgovoru), ne "najdalji" status.
+- `shipments.status` = status poslednjeg događaja po vremenu (pa po redosledu u odgovoru), ne "najdalji" status. **Dogovoreno, ADR-009.**
 - **`is_final` (predlog):** pošiljka postaje konačna tek kad je poslednji događaj `delivered` ili `returned` i od njega je prošlo 48 h bez novih događaja. Do tada se proverava normalno. U stvarnim podacima BEX je ispravljao "Dostavljeno" posle 2–7 minuta (2 od 30 pošiljki).
 
 ## Zadaci
