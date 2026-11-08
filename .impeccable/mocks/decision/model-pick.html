@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<title>ShipmentView · Pošiljke (Adresnica)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--w:#fff;--k:#111;--g:#E6E6E6;--m:#5A5A5A;--p:#4A0099;--pt:#F2ECFA;
+--gray:#5E5E5E;--blue:#1B5FD1;--yel:#F2B90D;--grn:#1E7B3C;--org:#C2540A;--red:#C0272D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--w);color:var(--k);font:13px/1.35 Archivo,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--p);outline-offset:2px}
+.cn{font-family:"Barlow Condensed",sans-serif}
+/* top nav */
+nav{height:52px;background:var(--k);color:var(--w);display:flex;align-items:center;padding:0 20px;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;font:800 22px/1 "Barlow Condensed";letter-spacing:.02em}
+nav ul{display:flex;list-style:none;height:100%;gap:2px}
+nav li a{display:flex;align-items:center;gap:8px;height:100%;padding:0 14px;color:#fff;text-decoration:none;font-weight:600}
+nav li a[aria-current]{background:var(--w);color:var(--k)}
+.bdg{background:var(--yel);color:var(--k);font-weight:800;font-size:11px;padding:1px 6px;border:1.5px solid #fff}
+.who{margin-left:auto;display:flex;align-items:center;gap:14px}
+.firm{background:none;border:1.5px solid #fff;padding:6px 12px;font-weight:600;color:#fff}
+.av{width:30px;height:30px;display:grid;place-items:center;background:#fff;color:var(--k);font-weight:800}
+/* layout */
+.wrap{display:flex;height:848px}
+main{flex:1;display:flex;flex-direction:column;min-width:0}
+.bar{display:flex;align-items:center;gap:10px;padding:14px 20px 10px}
+h1{font:800 30px/1 "Barlow Condensed";letter-spacing:.01em;text-transform:uppercase}
+.sync{display:flex;align-items:center;gap:6px;color:var(--m);font-size:12px;margin:2px 14px 0 0}
+.sync::before{content:"";width:8px;height:8px;background:var(--grn)}
+.srch{flex:1;height:34px;border:2px solid var(--k);padding:0 10px 0 32px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23111' stroke-width='2'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cpath d='M9.5 9.5 13 13'/%3E%3C/svg%3E") 10px center no-repeat}
+.btn{height:34px;padding:0 12px;border:1.5px solid var(--k);background:var(--w);font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn.dk{background:var(--k);color:#fff;font-weight:700}
+.seg{display:flex}.seg .btn+.btn{border-left:0}.seg .on{background:var(--k);color:#fff}
+.chips{display:flex;gap:5px;padding:0 20px 12px;border-bottom:2px solid var(--k)}
+.chip{height:30px;padding:0 8px;border:1.5px solid var(--k);background:var(--w);font-weight:600;font-size:12px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.chip b{font-weight:800}.chip i{width:10px;height:10px;background:var(--c);border:1px solid var(--k)}
+.chip[aria-pressed=true]{background:var(--k);color:#fff}
+/* table */
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{height:34px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--k);padding:0 8px}
+th button{background:none;border:0;font-weight:700;letter-spacing:inherit;text-transform:inherit;cursor:pointer}
+th button::after{content:" ↕";color:#999}th button.sort::after{content:" ▼";color:var(--k)}
+td{height:52px;padding:0 8px;border-bottom:1px solid var(--g);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+th:first-child,td:first-child{padding-left:20px}
+tr.sel td{background:var(--pt)}tr.sel td:first-child{box-shadow:inset 4px 0 0 var(--p)}
+input[type=checkbox]{width:15px;height:15px;accent-color:var(--p)}
+.trk{display:flex;align-items:center;gap:8px}
+.trk b{font:700 20px/1 "Barlow Condensed";letter-spacing:.02em}
+.trk small{font-size:10px;font-weight:800;border:1.5px solid var(--k);padding:0 3px;line-height:14px}
+.bc{display:inline-block;width:24px;height:18px;background:linear-gradient(90deg,#111 0 2px,#fff 2px 3px,#111 3px 4px,#fff 4px 6px,#111 6px 9px,#fff 9px 10px,#111 10px 11px,#fff 11px 13px,#111 13px 14px,#fff 14px 16px,#111 16px 19px,#fff 19px 20px,#111 20px 21px,#fff 21px 22px,#111 22px 24px);background-size:24px 100%}
+.st{display:inline-flex;align-items:center;gap:7px;height:24px;border:1.5px solid var(--k);padding-right:8px;font-weight:600;font-size:12px;background:var(--w)}
+.st i{font-style:normal;width:20px;height:100%;display:grid;place-items:center;background:var(--c);color:#fff;font-weight:800;font-size:12px;border-right:1.5px solid var(--k)}
+.gray{--c:var(--gray)}.blue{--c:var(--blue)}.yel{--c:var(--yel)}.yel i{color:var(--k)}.grn{--c:var(--grn)}.org{--c:var(--org)}.red{--c:var(--red)}
+.num{text-align:right}.mut{color:var(--m)}
+.ev{display:flex;flex-direction:column;line-height:1.3}.ev span:first-child{font-weight:600}.ev span{overflow:hidden;text-overflow:ellipsis}
+.flag{display:inline-block;background:var(--k);color:#fff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:1px 5px;margin-left:6px}
+.foot{margin-top:auto;display:flex;justify-content:space-between;padding:10px 20px;border-top:2px solid var(--k);font-size:12px;color:var(--m)}
+/* detail panel = the label */
+aside{width:400px;border-left:2px solid var(--k);padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.ph{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+kbd{font:700 11px Archivo;border:1.5px solid var(--k);padding:0 4px;margin:0 1px}
+.x{width:28px;height:28px;border:1.5px solid var(--k);background:var(--w);font-weight:800}
+.lbl{border:2px solid var(--k)}
+.z{padding:10px 14px;border-bottom:2px solid var(--k)}.z:last-child{border-bottom:0}
+.zl{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;display:flex;justify-content:space-between}
+.big{font:800 46px/1 "Barlow Condensed";letter-spacing:.03em}
+.z .bc{display:block;width:100%;height:40px;margin-top:8px;background-size:37px 100%}
+.alert{display:flex;gap:10px;align-items:flex-start;background:#FFF4CC;border:1.5px solid var(--k);border-left:8px solid var(--yel);padding:8px 10px;margin-top:8px}
+.alert b{display:block;font-size:14px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:6px}.kv dt{font-size:10px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.08em}.kv dd{font-weight:600;font-size:14px}
+.name{font-size:18px;font-weight:700}
+.amt{font:800 38px/1 "Barlow Condensed"}.amt small{font-size:20px;margin-left:4px}
+ol{list-style:none}ol li{display:grid;grid-template-columns:118px 1fr;gap:8px;padding:6px 0;border-top:1px solid var(--g)}ol li:first-child{border-top:0;font-weight:700}
+ol time{font-weight:600}ol em{font-style:normal;display:block;color:var(--m);font-weight:400;font-size:12px}
+</style>
+</head>
+<body>
+<nav aria-label="Glavna navigacija">
+  <a class="logo" href="#" style="color:#fff;text-decoration:none"><svg viewBox="270 110 1000 560" height="26" aria-hidden="true"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="92" d="M 420 581 H 660 A 88 88 0 0 0 660 405 H 540 A 83 83 0 0 1 540 239 H 745 L 972 590 L 1150 232"/><circle stroke-width="36" cx="360" cy="577" r="60"/><circle stroke-width="36" cx="1176" cy="193" r="60"/></g></svg>SHIPMENTVIEW</a>
+  <ul>
+    <li><a href="#" aria-current="page">Pošiljke</a></li>
+    <li><a href="#">Upozorenja <span class="bdg">7</span></a></li>
+    <li><a href="#">Uvoz</a></li><li><a href="#">Otkupi</a></li><li><a href="#">Podešavanja</a></li>
+  </ul>
+  <div class="who"><button class="firm">Moda Nova d.o.o. ▾</button><span class="av" title="Dule">D</span></div>
+</nav>
+<div class="wrap">
+<main>
+  <div class="bar">
+    <div><h1>Pošiljke</h1><div class="sync">Ažurirano pre 12 min</div></div>
+    <input class="srch" type="search" placeholder="Broj pošiljke, primalac ili telefon" aria-label="Pretraga">
+    <button class="btn">Kurir: BEX ▾</button>
+    <div class="seg" role="group" aria-label="Datum"><button class="btn on">Danas</button><button class="btn">7 dana</button></div>
+    <label class="btn"><input type="checkbox"> Ima otkup</label>
+    <button class="btn dk">↓ Izvezi u Excel</button>
+  </div>
+  <div class="chips" role="group" aria-label="Filter po statusu">
+    <button class="chip" aria-pressed="true">Sve <b>1.284</b></button>
+    <button class="chip" aria-pressed="false">Aktivne <b>312</b></button>
+    <button class="chip gray"><i></i>Kreirano <b>41</b></button>
+    <button class="chip blue"><i></i>U transportu <b>198</b></button>
+    <button class="chip yel"><i></i>Neuspela dostava <b>23</b></button>
+    <button class="chip org"><i></i>Povrat u toku <b>11</b></button>
+    <button class="chip grn"><i></i>Isporučeno <b>902</b></button>
+    <button class="chip red"><i></i>Vraćeno <b>29</b></button>
+  </div>
+  <table>
+    <colgroup><col style="width:48px"><col style="width:166px"><col style="width:158px"><col style="width:140px"><col style="width:96px"><col style="width:112px"><col style="width:112px"><col></colgroup>
+    <thead><tr><th><input type="checkbox" aria-label="Izaberi sve"></th><th><button>Broj pošiljke</button></th><th><button>Status</button></th><th><button>Primalac</button></th><th><button>Mesto</button></th><th>Telefon</th><th class="num"><button>Otkup</button></th><th><button class="sort">Poslednja promena</button></th></tr></thead>
+    <tbody>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 187 553</b><small>BEX</small></div></td><td><span class="st blue"><i>→</i>U transportu</span></td><td>Jelena Marković</td><td>Novi Sad</td><td>064 218 3391</td><td class="num">3.490,00 RSD</td><td><div class="ev"><span>Preuzeto</span><span class="mut">08.11.2026. 09:14</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 187 548</b><small>BEX</small></div></td><td><span class="st grn"><i>✓</i>Isporučeno</span></td><td>Nikola Petrović</td><td>Beograd</td><td>063 774 1028</td><td class="num">2.150,00 RSD</td><td><div class="ev"><span>Isporučeno</span><span class="mut">08.11.2026. 11:02</span></div></td></tr>
+      <tr class="sel" aria-selected="true"><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 186 902</b><small>BEX</small></div></td><td><span class="st yel"><i>!</i>Neuspela dostava</span></td><td>Milica Jovanović</td><td>Kragujevac</td><td>065 330 9174</td><td class="num">5.800,00 RSD</td><td><div class="ev"><span>Bio na adresi - Ne javlja se na telefon</span><span class="mut">08.11.2026. 10:47</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 186 877</b><small>BEX</small></div></td><td><span class="st blue"><i>→</i>U transportu</span></td><td>Stefan Ilić</td><td>Niš</td><td>062 905 4410</td><td class="num mut">—</td><td><div class="ev"><span>U tranzitu</span><span class="mut">07.11.2026. 16:20</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 185 311</b><small>BEX</small></div></td><td><span class="st blue"><i>→</i>U transportu</span></td><td>Ana Stojanović</td><td>Subotica</td><td>069 441 2287</td><td class="num">1.990,00 RSD</td><td><div class="ev"><span>Preuzeto<b class="flag">⏱ Zaglavljeno 4 d</b></span><span class="mut">04.11.2026. 13:05</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 187 601</b><small>BEX</small></div></td><td><span class="st gray"><i>○</i>Kreirano</span></td><td>Marko Đorđević</td><td>Čačak</td><td>064 552 8813</td><td class="num">4.200,00 RSD</td><td><div class="ev"><span>Evidentirano</span><span class="mut">08.11.2026. 08:31</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 184 090</b><small>BEX</small></div></td><td><span class="st org"><i>↩</i>Povrat u toku</span></td><td>Ivana Nikolić</td><td>Zrenjanin</td><td>061 218 7740</td><td class="num">2.700,00 RSD</td><td><div class="ev"><span>Povrat pošiljaocu</span><span class="mut">07.11.2026. 14:12</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 186 455</b><small>BEX</small></div></td><td><span class="st grn"><i>✓</i>Isporučeno</span></td><td>Dragan Kostić</td><td>Šabac</td><td>063 119 0562</td><td class="num">3.100,00 RSD</td><td><div class="ev"><span>Isporučeno</span><span class="mut">08.11.2026. 12:38</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 183 772</b><small>BEX</small></div></td><td><span class="st red"><i>✕</i>Vraćeno</span></td><td>Tamara Pavlović</td><td>Valjevo</td><td>065 803 2251</td><td class="num">6.450,00 RSD</td><td><div class="ev"><span>Vraćeno pošiljaocu</span><span class="mut">06.11.2026. 10:09</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 187 512</b><small>BEX</small></div></td><td><span class="st blue"><i>→</i>U transportu</span></td><td>Luka Savić</td><td>Kraljevo</td><td>062 640 3318</td><td class="num">1.450,00 RSD</td><td><div class="ev"><span>U tranzitu</span><span class="mut">08.11.2026. 07:56</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 186 230</b><small>BEX</small></div></td><td><span class="st yel"><i>!</i>Neuspela dostava</span></td><td>Sanja Popović</td><td>Pančevo</td><td>064 771 9035</td><td class="num">2.380,00 RSD</td><td><div class="ev"><span>Bio na adresi - Primalac nije kod kuće</span><span class="mut">08.11.2026. 09:40</span></div></td></tr>
+      <tr><td><input type="checkbox"></td><td><div class="trk"><span class="bc"></span><b>241 187 499</b><small>BEX</small></div></td><td><span class="st blue"><i>→</i>U transportu</span></td><td>Vuk Lazić</td><td>Smederevo</td><td>060 334 1186</td><td class="num">3.900,00 RSD</td><td><div class="ev"><span>Preuzeto</span><span class="mut">08.11.2026. 10:22</span></div></td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>Prikazano 1–12 od 1.284 · sortirano po poslednjoj promeni</span><span>Strana 1 od 107 &nbsp; <button class="btn" style="height:26px">‹</button> <button class="btn" style="height:26px">›</button></span></div>
+</main>
+<aside aria-label="Detalj pošiljke">
+  <div class="ph"><span>Detalj pošiljke · <kbd>↑</kbd><kbd>↓</kbd> sledeća pošiljka</span><button class="x" aria-label="Zatvori">✕</button></div>
+  <div class="lbl">
+    <div class="z"><div class="zl"><span>Broj pošiljke</span><span>Kurir: BEX</span></div><div class="big">241 186 902</div><span class="bc"></span></div>
+    <div class="z"><div class="zl"><span>Status</span><span class="mut">2. neuspeli pokušaj</span></div><span class="st yel"><i>!</i>Neuspela dostava</span>
+      <div class="alert" role="alert"><div><b>Pozvati kupca</b>Kurir dva puta bio na adresi, primalac se ne javlja na telefon.</div></div></div>
+    <div class="z"><div class="zl"><span>Primalac</span></div><div class="name">Milica Jovanović</div>
+      <dl class="kv"><div><dt>Telefon</dt><dd>065 330 9174</dd></div><div><dt>Mesto</dt><dd>Kragujevac</dd></div></dl></div>
+    <div class="z"><div class="zl"><span>Otkup</span></div><div class="amt">5.800,00<small>RSD</small></div></div>
+    <div class="z"><div class="zl"><span>Istorija statusa</span><span class="mut">najnovije gore</span></div>
+      <ol>
+        <li><time>08.11.2026. 10:47</time><span>Preuzeto - Neuspela dostava - Bio na adresi - Ne javlja se na telefon<em>Kragujevac</em></span></li>
+        <li><time>07.11.2026. 11:15</time><span>Preuzeto - Neuspela dostava - Bio na adresi - Ne javlja se na telefon<em>Kragujevac</em></span></li>
+        <li><time>06.11.2026. 18:02</time><span>U tranzitu<em>Beograd hub</em></span></li>
+        <li><time>06.11.2026. 14:30</time><span>Preuzeto<em>Beograd</em></span></li>
+        <li><time>06.11.2026. 09:12</time><span>Evidentirano<em>Beograd</em></span></li>
+      </ol></div>
+  </div>
+</aside>
+</div>
+</body>
+</html>
