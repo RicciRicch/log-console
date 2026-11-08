@@ -24,13 +24,18 @@ export interface FetchCall {
  * A handler may be a response, or a function of the attempt number (1-based), or throw to simulate a network error.
  */
 export function fakeFetch(
-  handlers: Record<string, FakeResponse | ((attempt: number) => FakeResponse | Promise<FakeResponse>)>,
+  handlers: Record<
+    string,
+    FakeResponse | ((attempt: number) => FakeResponse | Promise<FakeResponse>)
+  >,
 ) {
   const calls: FetchCall[] = [];
   const attempts = new Map<string, number>();
 
   const fetchImpl = (async (input: string | URL | Request, init?: RequestInit) => {
-    const url = new URL(typeof input === 'string' ? input : input instanceof URL ? input.href : input.url);
+    const url = new URL(
+      typeof input === 'string' ? input : input instanceof URL ? input.href : input.url,
+    );
     const trackingNumber = url.searchParams.get('trackingValue') ?? '';
     calls.push({ trackingNumber, headers: { ...(init?.headers as Record<string, string>) } });
 

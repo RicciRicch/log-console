@@ -10,7 +10,10 @@ function token(): string {
     .split(/\r?\n/)
     .find((l) => l.startsWith('BEX_API_TOKEN='));
   if (!line) throw new Error('BEX_API_TOKEN nije postavljen');
-  return line.slice('BEX_API_TOKEN='.length).trim().replace(/^["']|["']$/g, '');
+  return line
+    .slice('BEX_API_TOKEN='.length)
+    .trim()
+    .replace(/^["']|["']$/g, '');
 }
 
 const numbers = process.argv.slice(2);
@@ -24,6 +27,14 @@ for (const r of results) {
   }
   console.log(r.trackingNumber, '->', r.currentStatus);
   for (const e of r.events) {
-    console.log('   ', e.occurredAt.toISOString(), e.rawStatus, e.rawReason ?? '-', e.status, '|', e.description);
+    console.log(
+      '   ',
+      e.occurredAt.toISOString(),
+      e.rawStatus,
+      e.rawReason ?? '-',
+      e.status,
+      '|',
+      e.description,
+    );
   }
 }
