@@ -4,7 +4,7 @@ Statusi: `Ideja` · `Spec` · `U radu` · `Review` · `Gotovo`
 
 | # | Feature | Faza | Vlasnik | Status | Zavisi od |
 | --- | --- | --- | --- | --- | --- |
-| [F00](./F00-setup.md) | Setup repoa, baze i deploy-a | M0 | Uroš | Spec | — |
+| [F00](./F00-setup.md) | Setup repoa, baze i deploy-a | M0 | Uroš | U radu | — |
 | [F01](./F01-firme-korisnici-uloge.md) | Firme, korisnici i uloge | M0 | Uroš | Spec | F00 |
 | [F02](./F02-uvoz-i-mapiranje.md) | Uvoz pošiljki i mapiranje kolona | M1 | Dule | Spec | F01 |
 | [F03](./F03-bex-modul.md) | BEX modul | M1 | Velja | Spec | F00 |
