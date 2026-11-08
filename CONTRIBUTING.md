@@ -1,6 +1,6 @@
 # Pravila za GitHub
 
-Važi za Uroša, Veljata i Velju. Cilj: `main` je uvek ispravan i niko nikome ne gazi kod.
+Važi za Uroša, Velju i Duleta. Git komande kuca Claude Code umesto vas (vidi `CLAUDE.md`), ali po ovim pravilima. Cilj: `main` je uvek ispravan i niko nikome ne gazi kod.
 
 ## 1. Grane
 

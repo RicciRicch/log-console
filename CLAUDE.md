@@ -47,6 +47,22 @@ supabase db reset # migracije + seed
 4. Na kraju: štikliraj završene zadatke u feature fajlu, dopiši red u "Dnevnik" i ažuriraj status u `docs/features/README.md`.
 5. Ako je doneta nova arhitektonska odluka, dodaj je u `docs/DECISIONS.md`.
 
+## Testiranje (obavezno)
+
+- **Sve što napraviš, sam i testiraš.** Nova logika dobija test. Pre nego što kažeš da je nešto gotovo, pokreni `pnpm test`, `pnpm lint` i proveru tipova i popravi sve što pada.
+- UI izmenu pokreni u browseru i proveri da ekran stvarno radi (i na širini telefona).
+- Ako nešto nisi mogao da proveriš, reci to jasno. Ne prijavljuj "gotovo" dok testovi ne prolaze.
+
+## Git radi Claude, ne korisnik
+
+Niko iz tima ne treba da kuca git komande. Ti radiš sve po `CONTRIBUTING.md`:
+
+1. Na početku zadatka napravi granu iz ažurnog `main`-a (npr. `feat/F02-uvoz`).
+2. Kad je faza gotova (zadatak iz feature fajla ili celina koju je korisnik tražio) i testovi prolaze: sam napravi commit, push-uj granu i otvori PR na GitHub-u (`gh pr create`, opis po šablonu). Ne pitaj za dozvolu za ovo.
+3. Ako posao nije završen, a treba ga sačuvati, otvori PR kao **Draft**.
+4. Nikad ne push-uj direktno u `main` i ne merge-uj PR sam: review i merge radi drugi član tima.
+5. Korisniku na kraju daj link ka PR-u.
+
 ## UI i dizajn
 
 - Pre bilo kakvog UI rada pročitaj `PRODUCT.md` i `DESIGN.md` i koristi Impeccable skill.
