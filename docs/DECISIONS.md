@@ -61,4 +61,5 @@ Format: kontekst → odluka → posledice. Nova odluka ide na dno sa sledećim b
 **Kontekst:** Vlasnik proizvoda kaže da je cilj da firme čije pakete šaljemo (klijenti operatera, npr. web shopovi) vide svoje pošiljke same, umesto da pitaju operatera ili gledaju kurirske portale. U `docs/MVP.md` su pod-klijenti trenutno "kasnije", a F01 ih isključuje.
 **Odluka (predlog):** U MVP ulazi klijentska strana: klijent se prijavljuje i vidi samo svoje pošiljke i otkupe, bez izmena. Operaterska strana ostaje glavni ekran.
 **Posledice:** Model podataka i RLS moraju da razlikuju firmu-operatera i njene klijente (npr. `client_id` na pošiljci i uloga `client`), što menja F01 i F02 (uvoz mora da zna kom klijentu pripada red). Kad se prihvati: ažurirati `docs/MVP.md`, F01 i F09.
+**Napomena (Velja, 08.11.2026.):** Kurirski API ključ (BEX) pripada firmi-operateru, ne klijentu. Klijenti nemaju svoje kurirske ugovore u konzoli, pa `courier_accounts` ostaje po `tenant_id`, a praćenje statusa (F04) i dalje radi po firmi-operateru. `client_id` služi samo za to ko šta vidi.
 
