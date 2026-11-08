@@ -49,9 +49,3 @@ Format: kontekst → odluka → posledice. Nova odluka ide na dno sa sledećim b
 **Kontekst:** Administrator unosi API ključ kurira u web aplikaciji (F01), a ključ mora da završi u Supabase Vault-u. `service_role` ključ ne sme u `apps/web`, a običan korisnik nema pravo da piše u Vault.
 **Odluka:** U bazi postoji funkcija `set_courier_secret(tenant_id, courier_code, secret)` (`SECURITY DEFINER`, `search_path` zaključan). Funkcija proverava da je pozivalac `admin` te firme, upisuje ili menja tajnu u Vault-u, u `courier_accounts` čuva `vault_secret_id` i `secret_last4`, i piše u `audit_log`. Web je poziva iz Server Action-a sa sesijom korisnika. Čitanje dešifrovane tajne ostaje samo worker-u (`service_role`). Ne postoji funkcija koja vraća ključ u web.
 **Posledice:** Web nikad ne vidi ceo ključ posle unosa, prikaz `••••1234` ide iz `secret_last4`. Funkcija mora da ima SQL test: operater i korisnik druge firme dobijaju grešku. `EXECUTE` dozvola samo za `authenticated`, ne za `anon`.
-
-## ADR-009: Trenutni status pošiljke je poslednji događaj po vremenu
-**Status:** Prihvaćeno (Uroš, Velja, 08.11.2026.)
-**Kontekst:** Na stvarnim BEX podacima kurir je upisivao "Dostavljeno", pa ga posle nekoliko minuta ispravljao u neuspelu dostavu, a poništavao je i "Vratiti pošiljaocu" (F03). Ako bi se status računao kao "najdalji dostignuti" ili se ne bi menjao posle `delivered`, konzola bi prikazivala pogrešan status.
-**Odluka:** `shipments.status` je uvek jedinstveni status poslednjeg događaja po vremenu kod kurira (`occurred_at`). Kad dva događaja imaju isto vreme, odlučuje redosled u odgovoru kurira. Status može da ide i "unazad" (npr. `delivered` → `failed_delivery`).
-**Posledice:** Logika ne pretpostavlja da statusi samo napreduju. UI, upozorenja (F05) i Google Sheet (F08) moraju da podnesu povratak statusa. Kada pošiljka postaje konačna (`is_final`) je posebno pitanje, otvoreno u F04.
