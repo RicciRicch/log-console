@@ -39,7 +39,8 @@ docs(F02): dopunjeni kriterijumi prihvatanja
 
 ## 3. Pull request
 
-- Jedan PR = jedna stvar. Idealno ispod 400 linija izmena.
+- **PR se otvara tek kad je faza (ili tvoj deo faze) skroz gotova i proverena.** Do tada se radi na jednoj grani, sa onoliko commit-ova koliko treba. CI radi na svakom push-u, pa se greške vide i bez PR-a.
+- Predlozi, pitanja i sitnice ne idu kao poseban PR, nego na sync ili u poruku.
 - Naslov kao commit poruka: `feat(bex): praćenje statusa`.
 - Opis po šablonu (popunjava se sam iz `.github/pull_request_template.md`).
 - Ako PR još nije spreman, otvori ga kao **Draft**.

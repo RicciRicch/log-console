@@ -17,3 +17,7 @@ src-tauri/target/
 
 # BEX istraživanje: sirovi odgovori sa podacima primalaca
 tools/bex-probe/out/
+
+# Next.js generiše sam
+next-env.d.ts
+*.tsbuildinfo

@@ -33,7 +33,7 @@ Kao operater, želim da ubacim današnji spisak BEX pošiljki iz tabele koju ve�
 - [ ] Google Sheet izvor
 
 ## Otvorena pitanja
-- Kako tačno izgleda sadašnja tabela u pilot firmi? Treba nam primer fajla (bez pravih ličnih podataka).
+- ~~Kako tačno izgleda sadašnja tabela u pilot firmi?~~ Struktura je u `docs/PILOT-PRIMERI.md`: više redova po porudžbini, telefon bez vodeće nule, u koloni za broj pošiljke ponekad tekst ili drugi kurir.
 - Google Sheet: OAuth ili deljenje sa service account emailom?
 
 ## Dnevnik
