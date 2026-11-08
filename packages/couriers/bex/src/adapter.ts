@@ -86,7 +86,11 @@ export function createBexAdapter(options: BexAdapterOptions = {}): CourierAdapte
       return parseHistory(trackingNumber, res);
     }
 
-    return fail(trackingNumber, 'unavailable', `gave up after ${maxAttempts} attempts (${lastProblem})`);
+    return fail(
+      trackingNumber,
+      'unavailable',
+      `gave up after ${maxAttempts} attempts (${lastProblem})`,
+    );
   }
 
   async function parseHistory(trackingNumber: string, res: Response): Promise<CourierStatusResult> {
@@ -154,7 +158,9 @@ export function createBexAdapter(options: BexAdapterOptions = {}): CourierAdapte
         }
       }
 
-      await Promise.all(Array.from({ length: Math.min(concurrency, trackingNumbers.length) }, worker));
+      await Promise.all(
+        Array.from({ length: Math.min(concurrency, trackingNumbers.length) }, worker),
+      );
       if (authError) throw authError;
       return results;
     },
