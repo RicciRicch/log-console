@@ -20,3 +20,4 @@ tools/bex-probe/out/
 
 # Next.js generiše sam
 next-env.d.ts
+*.tsbuildinfo
