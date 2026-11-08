@@ -18,6 +18,8 @@ Problematične pošiljke se same izdvajaju, da operater ne traži ručno šta je
 
 ## Tehničke beleške
 - Broj neuspelih pokušaja se računa iz `shipment_events` (događaji sa statusom `failed_delivery`), ne iz trenutnog statusa pošiljke.
+- Kod BEX-a je neuspeo pokušaj događaj `statusCode = 11` sa `reasonCode != 0`, a razlog je u `statusName` (npr. "Bio na adresi - Ne javlja se na telefon"). Razlog treba prikazati operateru uz upozorenje. Lista razloga je u F03.
+- Koji BEX `reasonCode` znači odbijanje još ne znamo (pitanje za BEX u F03).
 - Podešavanja po firmi su u `tenant_settings` (`stuck_after_days`, `pickup_cutoff_time`, `timezone`).
 
 ## Zadaci

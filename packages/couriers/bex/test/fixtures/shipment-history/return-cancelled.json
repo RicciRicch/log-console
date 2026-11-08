@@ -1,0 +1,96 @@
+{
+  "status": 200,
+  "body": {
+    "eventPrediction": "Podaci o primaocu: Test***, BEOG***, 06000****\nIZMIŠLJEN TEKST ZA TEST.",
+    "listShipmentHistory": [
+      {
+        "shipmentId": 100000004,
+        "statusCode": 1,
+        "scanCode": 0,
+        "reasonCode": 0,
+        "statusName": "Evidentirano",
+        "statusDate": "2026-01-05",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-05T09:46:44",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000004,
+        "statusCode": 11,
+        "scanCode": 15,
+        "reasonCode": 0,
+        "statusName": "Preuzeto - Popis magacina",
+        "statusDate": "2026-01-08",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-08T17:06:50",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000004,
+        "statusCode": 21,
+        "scanCode": 2,
+        "reasonCode": 0,
+        "statusName": "Dostavljeno",
+        "statusDate": "2026-01-09",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-09T12:31:46",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000004,
+        "statusCode": 11,
+        "scanCode": 0,
+        "reasonCode": 0,
+        "statusName": "Preuzeto",
+        "statusDate": "2026-01-09",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-09T12:33:19",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000004,
+        "statusCode": 11,
+        "scanCode": 100,
+        "reasonCode": 392,
+        "statusName": "Preuzeto - Neuspela dostava - Doći će u paket shop",
+        "statusDate": "2026-01-12",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-12T10:08:56",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000004,
+        "statusCode": 25,
+        "scanCode": 30,
+        "reasonCode": 0,
+        "statusName": "Vratiti pošiljaocu - Vratiti pošiljaocu",
+        "statusDate": "2026-01-13",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-13T10:07:43",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000004,
+        "statusCode": 11,
+        "scanCode": 0,
+        "reasonCode": 0,
+        "statusName": "Preuzeto",
+        "statusDate": "2026-01-13",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-13T14:13:49",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000004,
+        "statusCode": 21,
+        "scanCode": 2,
+        "reasonCode": 0,
+        "statusName": "Dostavljeno",
+        "statusDate": "2026-01-13",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-13T14:28:14",
+        "timeZone": "GMT+1"
+      }
+    ]
+  }
+}

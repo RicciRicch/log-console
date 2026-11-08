@@ -14,3 +14,6 @@ Thumbs.db
 .vercel/
 supabase/.temp/
 src-tauri/target/
+
+# BEX istraživanje: sirovi odgovori sa podacima primalaca
+tools/bex-probe/out/
