@@ -30,7 +30,8 @@ Mapiranje (iz dokumenta sa idejom, dopuniti posle istraživanja API-ja):
 
 ## Zadaci
 - [ ] Proučiti BEX API dokumentaciju (autentifikacija, endpoint za status, limiti, sve šifre)
-- [ ] `packages/couriers/core`: `CourierAdapter`, `UnifiedStatus`
+- [ ] `packages/shared`: `UnifiedStatus`
+- [ ] `packages/couriers/core`: `CourierAdapter` (`CourierStatus` sa sirovom šifrom, razlogom neuspeha i vremenom događaja)
 - [ ] `packages/couriers/bex`: klijent + `getStatuses` + `mapStatus`
 - [ ] Snimljeni odgovori (fixtures) i testovi
 - [ ] Kompletna tabela BEX šifara u ovom fajlu
@@ -38,6 +39,7 @@ Mapiranje (iz dokumenta sa idejom, dopuniti posle istraživanja API-ja):
 ## Otvorena pitanja
 - Koliko pošiljki može u jednom zahtevu i koliki je limit zahteva?
 - Postoji li test (sandbox) okruženje?
+- Da li status endpoint vraća istoriju događaja sa vremenom ili samo trenutni status? (važno za F04 i F05)
 
 ## Dnevnik
 | Datum | Ko | Šta |

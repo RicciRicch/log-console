@@ -23,6 +23,7 @@ Firma prestaje da prati pošiljke i otkupe ručno po BEX portalu i Google Sheet-
 ## Šta NE ulazi u MVP (kasnije)
 
 - Kreiranje pošiljki kod kurira i štampa nalepnica (u MVP-u se pošiljke kreiraju kao i do sada, a konzola ih uvozi i prati)
+- Ručni unos pošiljke kroz formu u konzoli
 - Drugi kurir
 - Pod-klijenti za fulfillment centre
 - Direktna veza sa web shopom
