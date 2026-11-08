@@ -1,6 +1,6 @@
 # Konzola (radni naziv)
 
-Jedan ekran na kom firma koja šalje pakete vidi sve svoje pošiljke, statuse i otkupe, bez obzira na kurira. Podaci se povlače sa kurirskih API-ja, ne unose se ručno.
+Jedan ekran na kom firma koja šalje pakete vidi sve svoje pošiljke, statuse i otkupe, bez obzira na kurira. Podaci se povlače sa kurirskih API-ja, ne unose se rucno.
 
 Cela ideja: [`Konzola za praćenje pošiljki — ideja i workflow (iz PDF-a).md`](./Konzola%20za%20pra%C4%87enje%20po%C5%A1iljki%20%E2%80%94%20ideja%20i%20workflow%20(iz%20PDF-a).md)
 
