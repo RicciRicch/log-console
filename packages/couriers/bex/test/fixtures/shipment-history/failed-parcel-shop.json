@@ -1,0 +1,52 @@
+{
+  "status": 200,
+  "body": {
+    "eventPrediction": "Podaci o primaocu: Test***, BEOG***, 06000****\nIZMIŠLJEN TEKST ZA TEST.",
+    "listShipmentHistory": [
+      {
+        "shipmentId": 100000005,
+        "statusCode": 1,
+        "scanCode": 0,
+        "reasonCode": 0,
+        "statusName": "Evidentirano",
+        "statusDate": "2026-01-05",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-05T09:46:46",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000005,
+        "statusCode": 11,
+        "scanCode": 7,
+        "reasonCode": 0,
+        "statusName": "Preuzeto - Utovar linijskog za CM",
+        "statusDate": "2026-01-05",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-05T16:50:55",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000005,
+        "statusCode": 11,
+        "scanCode": 100,
+        "reasonCode": 392,
+        "statusName": "Preuzeto - Neuspela dostava - Doći će u paket shop",
+        "statusDate": "2026-01-06",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-06T09:37:41",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000005,
+        "statusCode": 21,
+        "scanCode": 2,
+        "reasonCode": 0,
+        "statusName": "Dostavljeno",
+        "statusDate": "2026-01-08",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-08T13:10:44",
+        "timeZone": "GMT+1"
+      }
+    ]
+  }
+}

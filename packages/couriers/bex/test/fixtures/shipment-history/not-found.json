@@ -1,0 +1,6 @@
+{
+  "status": 400,
+  "body": {
+    "message": "Shipment with provided trackingValue doesn't exist. (Parameter 'trackingValue')"
+  }
+}
