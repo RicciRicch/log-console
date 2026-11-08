@@ -31,17 +31,20 @@ Kao administrator firme, želim da pozovem svoje operatere i unesem BEX API klju
 - [x] Funkcija `set_courier_secret` + SQL test (operater i druga firma dobijaju grešku)
 - [x] Pozivi korisnika bez `service_role`: tabela `invitations` + `accept_invitations()` posle prijave
 - [x] `create_tenant(name, admin_email)` za vlasnika platforme (samo `service_role`)
-- [ ] Login ekran i izbor firme (ako je korisnik u više firmi)
-- [ ] Ekran "Korisnici" (poziv, uloga, deaktivacija)
-- [ ] Ekran "Kuriri" (unos/zamena API ključa)
-- [x] Seed: 2 firme, po admin i operater (+ jedan operater u obe firme)
-- [ ] MFA ekran (TOTP je uključen u `supabase/config.toml`; isplata otkupa već traži `aal2`)
+- [x] Login ekran (lozinka + link na email) i izbor firme (ako je korisnik u više firmi)
+- [x] Ekran "Korisnici" (poziv, uloga, deaktivacija); emailovi kolega kroz `tenant_members()`
+- [x] Ekran "Kuriri" (unos/zamena API ključa kroz `set_courier_secret`, prikaz `••••1234`)
+- [x] Seed: 2 firme, po admin i operater (+ jedan operater u obe firme); seed je i na staging bazi
+- [x] Ekran "Bezbednost": uključivanje MFA (TOTP) i promena lozinke; posle lozinke se traži kod ako je MFA uključen
+- [ ] UI prolazi `/impeccable audit` (Dule; ekrani koriste privremene klase iz `apps/web/src/components/ui.ts`)
 
 ## Otvorena pitanja
 - ~~Da li jedan korisnik može da bude u više firmi?~~ Da, `memberships` to podržava.
-- Poziv novog korisnika šalje magic link. Da li je dovoljan Supabase-ov email ili treba naš (SMTP)? Za staging je dovoljan Supabase-ov.
+- Poziv novog korisnika: admin upisuje email, a kolega sam traži link na stranici za prijavu (link mora da se otvori u istom browseru, PKCE). Supabase-ov email ima mali limit (par mejlova na sat); pre pilota treba naš SMTP.
+- Za link na email na staging-u treba u Supabase podešavanjima (Auth → URL Configuration) dodati adresu aplikacije (npr. `http://localhost:3000/auth/callback`, kasnije Vercel adresa).
 
 ## Dnevnik
 | Datum | Ko | Šta |
 | --- | --- | --- |
 | 08.11.2026. | Uroš | Šema, RLS, pozivi, Vault ključ, audit log i seed (grana `feat/M0-temelj`). Ostaju ekrani |
+| 08.11.2026. | Uroš | Ekrani: prijava, MFA, izbor firme, Korisnici, Kuriri, Bezbednost (grana `feat/M0-ekrani`) |

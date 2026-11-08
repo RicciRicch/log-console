@@ -57,9 +57,10 @@ Format: kontekst → odluka → posledice. Nova odluka ide na dno sa sledećim b
 **Posledice:** Logika ne pretpostavlja da statusi samo napreduju. UI, upozorenja (F05) i Google Sheet (F08) moraju da podnesu povratak statusa. Kada pošiljka postaje konačna (`is_final`) je posebno pitanje, otvoreno u F04.
 
 ## ADR-010: Klijentska strana (pod-klijenti) ulazi u MVP
-**Status:** Predlog (Dule, 08.11.2026.; čeka Uroša i Veljata)
+**Status:** Predlog (Dule, 08.11.2026.). Uroš: **DA** (08.11.2026.). Čeka još Veljino potvrđivanje.
 **Kontekst:** Vlasnik proizvoda kaže da je cilj da firme čije pakete šaljemo (klijenti operatera, npr. web shopovi) vide svoje pošiljke same, umesto da pitaju operatera ili gledaju kurirske portale. U `docs/MVP.md` su pod-klijenti trenutno "kasnije", a F01 ih isključuje.
 **Odluka (predlog):** U MVP ulazi klijentska strana: klijent se prijavljuje i vidi samo svoje pošiljke i otkupe, bez izmena. Operaterska strana ostaje glavni ekran.
 **Posledice:** Model podataka i RLS moraju da razlikuju firmu-operatera i njene klijente (npr. `client_id` na pošiljci i uloga `client`), što menja F01 i F02 (uvoz mora da zna kom klijentu pripada red). Kad se prihvati: ažurirati `docs/MVP.md`, F01 i F09.
 **Napomena (Velja, 08.11.2026.):** Kurirski API ključ (BEX) pripada firmi-operateru, ne klijentu. Klijenti nemaju svoje kurirske ugovore u konzoli, pa `courier_accounts` ostaje po `tenant_id`, a praćenje statusa (F04) i dalje radi po firmi-operateru. `client_id` služi samo za to ko šta vidi.
+**Napomena (Uroš, 08.11.2026.):** Baza već čuva oznaku klijenta kao tekst (`shipments.client_ref`, `cod_payments.client_ref`, npr. `NR` iz BEX specifikacije). Kad se ADR prihvati, jezgro dobija tabelu `clients` (po firmi, sa oznakom), `client_id` na pošiljkama i uplatama i ulogu `client` u `memberships` sa RLS-om „vidi samo svog klijenta“. Ovo radi Uroš (baza), UI Dule (F09).
 

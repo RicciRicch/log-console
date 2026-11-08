@@ -25,7 +25,11 @@ Prazan, ali ispravan projekat na kom sva trojica mogu odmah da rade, sa lokalnom
 - [x] `.env.example` za web i worker (bez tajni u repou)
 - [x] GitHub Actions: lint, format, typecheck, test, baza (migracije + pgTAP + `db lint`)
 - [x] Worker u `apps/worker`: pg-boss, probni posao `health`, uredno gašenje
-- [ ] Deploy: web (Vercel, preview deploy za svaki PR), worker (Railway)
+- [x] Deploy staging (ručno sa računara): web na https://konzola-web.vercel.app (Vercel projekat `konzola-web`, root `apps/web`), worker na Railway (projekat `konzola`, servis `worker`, `railway.json`)
+- [ ] Automatski deploy posle merge-a u `main`: Velja (vlasnik repoa) povezuje Vercel i Railway GitHub aplikacije sa repoom
+- [ ] Pristup za Velju i Duleta: Supabase org `Konzola`, Vercel, Railway
+- [ ] `railway.json` prebaciti na `.railway/railway.ts` pre 01.12.2026. (Railway gasi stari format)
+- [ ] Supabase Auth → URL Configuration: dodati `https://konzola-web.vercel.app/auth/callback` (za link na email)
 - [x] Popuniti sekciju "Komande" u `CLAUDE.md`
 
 ## Otvorena pitanja

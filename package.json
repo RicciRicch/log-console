@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "pnpm --parallel --filter @konzola/web --filter @konzola/worker dev",
+    "start": "pnpm --filter @konzola/worker start",
     "test": "vitest run",
     "test:watch": "vitest",
     "db:start": "supabase start",

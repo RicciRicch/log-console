@@ -1,0 +1,19 @@
+# Šta Vercel CLI NIKAD ne šalje (ne čita .gitignore). Tajne ostaju na računaru.
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+node_modules
+**/node_modules
+.next
+**/.next
+coverage
+*.tsbuildinfo
+
+supabase/.temp
+supabase/.branches
+tools/bex-probe/out
+.claude

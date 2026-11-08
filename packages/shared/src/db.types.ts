@@ -788,6 +788,16 @@ export type Database = {
         Args: { p_courier_code: string; p_secret: string; p_tenant_id: string };
         Returns: string;
       };
+      tenant_members: {
+        Args: { p_tenant_id: string };
+        Returns: {
+          created_at: string;
+          email: string;
+          is_active: boolean;
+          role: Database['public']['Enums']['member_role'];
+          user_id: string;
+        }[];
+      };
     };
     Enums: {
       alert_resolution: 'auto' | 'manual';
