@@ -24,20 +24,30 @@ describe('mapBexStatus', () => {
 
 describe('parseBexTimestamp', () => {
   it('applies GMT+1 (winter)', () => {
-    expect(parseBexTimestamp('2026-01-05T09:46:42', 'GMT+1')?.toISOString()).toBe('2026-01-05T08:46:42.000Z');
+    expect(parseBexTimestamp('2026-01-05T09:46:42', 'GMT+1')?.toISOString()).toBe(
+      '2026-01-05T08:46:42.000Z',
+    );
   });
 
   it('applies GMT+2 (summer)', () => {
-    expect(parseBexTimestamp('2025-08-07T11:54:50', 'GMT+2')?.toISOString()).toBe('2025-08-07T09:54:50.000Z');
+    expect(parseBexTimestamp('2025-08-07T11:54:50', 'GMT+2')?.toISOString()).toBe(
+      '2025-08-07T09:54:50.000Z',
+    );
   });
 
   it('handles day rollover', () => {
-    expect(parseBexTimestamp('2026-01-01T00:30:00', 'GMT+1')?.toISOString()).toBe('2025-12-31T23:30:00.000Z');
+    expect(parseBexTimestamp('2026-01-01T00:30:00', 'GMT+1')?.toISOString()).toBe(
+      '2025-12-31T23:30:00.000Z',
+    );
   });
 
   it('accepts fractional seconds, "GMT" and "UTC+01:00"', () => {
-    expect(parseBexTimestamp('2026-01-05T09:46:42.123', 'GMT')?.toISOString()).toBe('2026-01-05T09:46:42.000Z');
-    expect(parseBexTimestamp('2026-01-05T09:46:42', 'UTC+01:00')?.toISOString()).toBe('2026-01-05T08:46:42.000Z');
+    expect(parseBexTimestamp('2026-01-05T09:46:42.123', 'GMT')?.toISOString()).toBe(
+      '2026-01-05T09:46:42.000Z',
+    );
+    expect(parseBexTimestamp('2026-01-05T09:46:42', 'UTC+01:00')?.toISOString()).toBe(
+      '2026-01-05T08:46:42.000Z',
+    );
   });
 
   it.each([

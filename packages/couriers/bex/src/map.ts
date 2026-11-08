@@ -39,7 +39,15 @@ export function parseBexTimestamp(timeStamp: string, timeZone: string): Date | n
   const z = TIMEZONE_RE.exec(timeZone.trim());
   if (!t || !z) return null;
 
-  const [, y, mo, d, h, mi, s] = t.map(Number) as [number, number, number, number, number, number, number];
+  const [, y, mo, d, h, mi, s] = t.map(Number) as [
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+  ];
   const sign = z[1] === '-' ? -1 : 1;
   const offsetMinutes = sign * (Number(z[2] ?? 0) * 60 + Number(z[3] ?? 0));
 
