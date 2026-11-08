@@ -10,7 +10,7 @@ Svako ima svoj deo sistema i "vlasnik" je tih feature-a: piše kod, odlučuje o 
 | **B: Integracije i worker** | Velja | Kurirski moduli, worker, polling, upozorenja, Google Sheets | F03, F04, F05, F08 |
 | **C: Frontend i dizajn** | Dule | Impeccable, svi ekrani, UX uvoza | F02 (UI + parsiranje), F06, UI za F05 i F07 |
 
-Predlog: brat koji radi u logistici je i **vlasnik proizvoda**. On odlučuje šta je važnije kad nije jasno, testira sa stvarnim podacima i piše "Kriterijume prihvatanja" u feature fajlovima. Najbolje mu odgovara uloga C ili A, jer tu je najviše odluka o tome kako operater radi.
+**Vlasnik proizvoda:** brat koji radi u logistici (pilot firma). Odlučuje šta je važnije kad nije jasno, testira sa stvarnim podacima i piše ili potvrđuje "Kriterijume prihvatanja" u feature fajlovima. Ne vodi deo koda.
 
 ## Ugovori između delova
 

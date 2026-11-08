@@ -20,13 +20,15 @@ Kao administrator firme, želim da pozovem svoje operatere i unesem BEX API klju
 - [ ] MFA dostupan za administratore
 
 ## Tehničke beleške
-- Tabele: `tenants`, `memberships`, `courier_accounts`, `audit_log`
+- Tabele: `tenants`, `tenant_settings`, `memberships`, `courier_accounts`, `audit_log`
 - Helper u SQL-u: `auth_tenant_ids()` za RLS politike
-- Ključevi u Supabase Vault, u `courier_accounts` samo `vault_secret_id`
+- Ključevi u Supabase Vault, u `courier_accounts` samo `vault_secret_id` i `secret_last4` (za prikaz `••••1234`)
+- Unos i zamena ključa preko `set_courier_secret` (`SECURITY DEFINER`, samo admin), poziva se iz Server Action-a. Vidi ADR-008.
 
 ## Zadaci
 - [ ] Migracije za tabele i RLS politike
 - [ ] RLS testovi izolacije
+- [ ] Funkcija `set_courier_secret` + SQL test (operater i druga firma dobijaju grešku)
 - [ ] Login ekran i izbor firme (ako je korisnik u više firmi)
 - [ ] Ekran "Korisnici" (poziv, uloga, deaktivacija)
 - [ ] Ekran "Kuriri" (unos/zamena API ključa)

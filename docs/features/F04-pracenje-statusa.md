@@ -12,13 +12,16 @@ Konzola sama, bez klikanja, drži statuse svih aktivnih pošiljki ažurnim i ču
 ## Kriterijumi prihvatanja
 - [ ] Status aktivne pošiljke nije stariji od 60 minuta
 - [ ] Isporučene i vraćene pošiljke (`is_final`) se više ne proveravaju
-- [ ] Novi događaj se upisuje samo kad se status stvarno promeni (bez duplikata)
+- [ ] Novi događaj se upisuje kad se promeni sirovi status kurira ili razlog neuspeha, ne samo jedinstveni status (dva uzastopna neuspela pokušaja su dva događaja)
+- [ ] Isti odgovor kurira obrađen dva puta ne pravi duplikat događaja
 - [ ] Pad kurirskog API-ja ne ruši posao: ponovni pokušaj sa pauzom, greška vidljiva u logu
 - [ ] Jedna firma sa puno pošiljki ne blokira ostale (posao po firmi)
 
 ## Tehničke beleške
 - pg-boss: `poll-statuses` (cron, raspoređuje po firmi) → `poll-tenant-courier` (radi batch-eve)
 - Posle upisa okida `evaluate-alerts` (F05) i `sync-google-sheet` (F08)
+- Događaj je nov ako se razlikuje bar jedno od: `raw_status`, `raw_reason`, `occurred_at` (vreme događaja kod kurira, ako ga API vraća). Unique `NULLS NOT DISTINCT` na `(shipment_id, raw_status, raw_reason, occurred_at)` čuva od duplikata pri ponovljenom pollingu.
+- F05 broji neuspele pokušaje iz `shipment_events`, zato se nijedan pokušaj ne sme "progutati".
 
 ## Zadaci
 - [ ] Postavljanje pg-boss u worker-u
@@ -30,6 +33,8 @@ Konzola sama, bez klikanja, drži statuse svih aktivnih pošiljki ažurnim i ču
 
 ## Otvorena pitanja
 - Da li je 60 minuta dovoljno ili pilot traži češće?
+- ~~Da li BEX API vraća vreme svakog događaja?~~ Da: `shipmentHistory` vraća celu istoriju sa `timeStamp` (vidi F03). Ostaje otvoreno kako se u istoriji vidi neuspeo pokušaj dostave.
+- BEX nema batch endpoint, pa je jedan zahtev po pošiljci. Posao po firmi mora da ograniči istovremene zahteve (limit čekamo od BEX-a).
 
 ## Dnevnik
 | Datum | Ko | Šta |

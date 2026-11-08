@@ -16,8 +16,12 @@ Problematične pošiljke se same izdvajaju, da operater ne traži ručno šta je
 - [ ] Upozorenje se samo zatvara kad se uslov više ne ispunjava
 - [ ] Broj otvorenih upozorenja se vidi u navigaciji
 
+## Tehničke beleške
+- Broj neuspelih pokušaja se računa iz `shipment_events` (događaji sa statusom `failed_delivery`), ne iz trenutnog statusa pošiljke.
+- Podešavanja po firmi su u `tenant_settings` (`stuck_after_days`, `pickup_cutoff_time`, `timezone`).
+
 ## Zadaci
-- [ ] Tabela `alerts` + podešavanja po firmi
+- [ ] Tabele `alerts` i `tenant_settings`
 - [ ] Posao `evaluate-alerts`
 - [ ] Ekran "Upozorenja" sa tabovima po vrsti
 - [ ] Bedž sa brojem u navigaciji

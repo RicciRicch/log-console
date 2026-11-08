@@ -18,9 +18,9 @@ apps/
   web/          # Next.js aplikacija
   worker/       # pozadinski poslovi
 packages/
-  shared/       # tipovi, statusi, zod šeme
+  shared/       # tipovi, UnifiedStatus, zod šeme
   couriers/
-    core/       # CourierAdapter interfejs
+    core/       # CourierAdapter interfejs (uvozi UnifiedStatus iz shared)
     bex/        # BEX implementacija
 supabase/
   migrations/
@@ -38,35 +38,48 @@ docs/
 ## Interfejs kurira (skica)
 
 ```ts
+// packages/shared
+type UnifiedStatus =
+  | 'created' | 'in_transit' | 'failed_delivery'
+  | 'delivered' | 'returning' | 'returned';
+
+// packages/couriers/core (UnifiedStatus se uvozi iz packages/shared)
 interface CourierAdapter {
   code: 'bex' | string;
   getStatuses(trackingNumbers: string[], creds: CourierCredentials): Promise<CourierStatus[]>;
   mapStatus(raw: CourierStatus): UnifiedStatus;
   // kasnije: createShipments, getLabels, getCodPayments
 }
-
-type UnifiedStatus =
-  | 'created' | 'in_transit' | 'failed_delivery'
-  | 'delivered' | 'returning' | 'returned';
 ```
+
+Jedinstveni statusi žive u `packages/shared`, jer ih koriste i jezgro i web, a oni ne smeju da zavise od kurirskih paketa.
+
+`CourierStatus` nosi bar sirovu šifru, razlog neuspeha (ako postoji) i vreme događaja kod kurira, da bi F04 mogao da razlikuje uzastopne neuspele pokušaje.
 
 ## Model podataka (skica)
 
 | Tabela | Ključne kolone |
 | --- | --- |
 | `tenants` | id, name, created_at |
+| `tenant_settings` | tenant_id, stuck_after_days (podrazumevano 3), pickup_cutoff_time, timezone |
 | `memberships` | tenant_id, user_id, role (`admin`, `operator`) |
-| `courier_accounts` | tenant_id, courier_code, vault_secret_id, is_default |
+| `courier_accounts` | tenant_id, courier_code, vault_secret_id, secret_last4, is_default |
 | `import_mappings` | tenant_id, source, column_map (jsonb) |
 | `imports` | tenant_id, source, status, rows_ok, rows_error |
 | `shipments` | tenant_id, courier_code, tracking_number, recipient_*, cod_amount, status, last_status_at, is_final |
-| `shipment_events` | tenant_id, shipment_id, raw_status, status, occurred_at |
+| `shipment_events` | tenant_id, shipment_id, raw_status, raw_reason, status, occurred_at, recorded_at |
 | `alerts` | tenant_id, shipment_id, type, resolved_at |
+| `cod_payments` | tenant_id, courier_code, tracking_number, amount, paid_on, import_id, shipment_id (null dok nije spareno), match_error |
 | `cod_items` | tenant_id, shipment_id, amount, phase, courier_paid_at, payout_id |
 | `payouts` | tenant_id, created_by, total, file_url, created_at |
+| `sheet_connections` | tenant_id, spreadsheet_id, sheet_name, tracking_column, status_column, auth_type, last_error |
 | `audit_log` | tenant_id, user_id, action, entity, entity_id, data |
 
-Unique: `(tenant_id, courier_code, tracking_number)` na `shipments`, da ponovni uvoz ne pravi duplikate.
+Unique ključevi (zaštita od duplikata pri ponovnom pokretanju):
+
+- `shipments`: `(tenant_id, courier_code, tracking_number)`, da ponovni uvoz ne pravi duplikate.
+- `shipment_events`: `(shipment_id, raw_status, raw_reason, occurred_at)` sa `NULLS NOT DISTINCT`. Događaj se upisuje i kad se promeni samo sirovi status ili razlog, ne samo jedinstveni status (vidi F04).
+- `cod_payments`: `(tenant_id, courier_code, tracking_number, paid_on, amount)`, da isti izveštaj uvezen dva puta ne duplira uplate. Konačan ključ zavisi od izgleda BEX izveštaja i od toga da li postoje delimične uplate (otvoreno pitanje u F07).
 
 ## Poslovi u worker-u
 
@@ -81,7 +94,7 @@ Unique: `(tenant_id, courier_code, tracking_number)` na `shipments`, da ponovni 
 ## Bezbednost
 
 - RLS na svakoj tabeli, politika preko `memberships`.
-- API ključevi kurira samo u Vault-u, čita ih samo worker.
+- API ključevi kurira samo u Vault-u, čita ih samo worker. Web ih upisuje preko funkcije `set_courier_secret` (ADR-008), bez `service_role` ključa.
 - Uloge se proveravaju i u bazi (RLS), ne samo u UI-ju.
 - Audit log za sve što dira novac (isplate, izmena otkupa).
 - MFA za administratore, PITR backup u Supabase-u.
