@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Lint, format, typecheck, test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm typecheck
+      - run: pnpm test
+
+  db:
+    name: Baza (migracije + RLS testovi)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Diže samo ono što testovi baze traže (Postgres, Auth, REST, Storage).
+      # start primenjuje sve migracije od nule i seed.
+      - run: pnpm exec supabase start -x studio,imgproxy,vector,logflare,edge-runtime,realtime,mailpit,supavisor
+      # pgTAP testovi iz supabase/tests.
+      - run: pnpm exec supabase test db
+      # Migracije bez upozorenja linter-a baze (npr. tabela bez RLS-a).
+      - run: pnpm exec supabase db lint --level error --fail-on error
