@@ -17,16 +17,21 @@ Multi-tenant SaaS za praćenje pošiljki i otkupa preko više kurira (prvi kurir
 
 ## Komande
 
-> Popuniti kad se postavi repo (F00).
-
 ```
 pnpm install
-pnpm dev          # web + worker
-pnpm test
+pnpm dev            # web (localhost:3000) + worker
+pnpm test           # Vitest
 pnpm lint
-supabase start    # lokalna baza
-supabase db reset # migracije + seed
+pnpm format:check
+pnpm typecheck
+pnpm db:start       # lokalni Supabase (traži Docker)
+pnpm db:reset       # migracije + seed (traži Docker)
+pnpm db:test        # pgTAP testovi baze (traži Docker; inače ih radi CI)
+pnpm db:types       # tipovi baze iz povezanog Supabase projekta -> packages/shared/src/db.types.ts
 ```
+
+- Tajne su u root `.env` (worker) i `apps/web/.env.local` (samo javne vrednosti). Primeri: `apps/*/.env.example`.
+- Bez Docker-a: migracije se proveravaju u CI-ju, a na staging idu sa `supabase db push --remote` (traži `SUPABASE_DB_PASSWORD`).
 
 ## Pravila koja se ne krše
 

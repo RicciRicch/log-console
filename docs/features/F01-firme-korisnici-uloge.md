@@ -26,17 +26,22 @@ Kao administrator firme, želim da pozovem svoje operatere i unesem BEX API klju
 - Unos i zamena ključa preko `set_courier_secret` (`SECURITY DEFINER`, samo admin), poziva se iz Server Action-a. Vidi ADR-008.
 
 ## Zadaci
-- [ ] Migracije za tabele i RLS politike
-- [ ] RLS testovi izolacije
-- [ ] Funkcija `set_courier_secret` + SQL test (operater i druga firma dobijaju grešku)
+- [x] Migracije za tabele i RLS politike (`20261108200000`, `20261108200100`)
+- [x] RLS testovi izolacije (`supabase/tests/01`, `02`)
+- [x] Funkcija `set_courier_secret` + SQL test (operater i druga firma dobijaju grešku)
+- [x] Pozivi korisnika bez `service_role`: tabela `invitations` + `accept_invitations()` posle prijave
+- [x] `create_tenant(name, admin_email)` za vlasnika platforme (samo `service_role`)
 - [ ] Login ekran i izbor firme (ako je korisnik u više firmi)
 - [ ] Ekran "Korisnici" (poziv, uloga, deaktivacija)
 - [ ] Ekran "Kuriri" (unos/zamena API ključa)
-- [ ] Seed: 2 firme, po admin i operater
+- [x] Seed: 2 firme, po admin i operater (+ jedan operater u obe firme)
+- [ ] MFA ekran (TOTP je uključen u `supabase/config.toml`; isplata otkupa već traži `aal2`)
 
 ## Otvorena pitanja
-- Da li jedan korisnik može da bude u više firmi? (fulfillment centri: verovatno da)
+- ~~Da li jedan korisnik može da bude u više firmi?~~ Da, `memberships` to podržava.
+- Poziv novog korisnika šalje magic link. Da li je dovoljan Supabase-ov email ili treba naš (SMTP)? Za staging je dovoljan Supabase-ov.
 
 ## Dnevnik
 | Datum | Ko | Šta |
 | --- | --- | --- |
+| 08.11.2026. | Uroš | Šema, RLS, pozivi, Vault ključ, audit log i seed (grana `feat/M0-temelj`). Ostaju ekrani |

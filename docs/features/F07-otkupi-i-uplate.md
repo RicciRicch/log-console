@@ -24,9 +24,12 @@ Za svaki otkup se zna gde je novac: kod kupca, kod kurira ili isplaćen klijentu
 - Oznaka klijenta iz kolone "Napomena klijenta" se čuva (`client_ref`), da bi specifikacija kasnije mogla po klijentu fulfillment centra.
 
 ## Zadaci
-- [ ] Tabele `cod_payments`, `cod_items`, `payouts`
-- [ ] Parser BEX izveštaja (treba primer fajla)
-- [ ] Posao `match-cod-payments`
+- [x] Tabele `cod_payments`, `cod_items`, `payouts` (`20261108200400_cod.sql`, testovi `05_cod`)
+- [x] Faza se menja sama sa statusom pošiljke (triger), uplaćen otkup se ne vraća unazad
+- [x] Sparivanje u bazi: `match_cod_payments(tenant_id)` (idempotentno, samo worker)
+- [x] Isplata: `create_payout(...)` (samo admin sa MFA, audit log, isplaćuje se iznos koji je kurir uplatio)
+- [ ] Parser BEX izveštaja (primer stigao, vidi `docs/PILOT-PRIMERI.md`)
+- [ ] Worker posao `match-cod-payments` (posle uvoza poziva `match_cod_payments`)
 - [ ] Ekran otkupa po fazama + zbirovi
 - [ ] Generisanje specifikacije (PDF + Excel)
 
