@@ -1,6 +1,6 @@
 # Pravila za GitHub
 
-Važi za Uroša, Veljata i Velju. Cilj: `main` je uvek ispravan i niko nikome ne gazi kod.
+Važi za Uroša, Velju i Duleta. Cilj: `main` je uvek ispravan i niko nikome ne gazi kod.
 
 ## 1. Grane
 

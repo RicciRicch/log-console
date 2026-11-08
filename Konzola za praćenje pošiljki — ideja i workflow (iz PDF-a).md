@@ -70,7 +70,7 @@ Porudžbina ulazi jednom, a konzola od nje sama pravi pošiljku kod izabranog ku
 4. **Izbor kurira.** Podrazumevani kurir po klijentu, uz mogućnost promene po porudžbini.
 5. **Kreiranje pošiljki.** Jednim klikom sve spremne porudžbine šalju se kuriru u jednom paketu zahteva (batch). Kurir vraća broj pošiljke za svaku.
 6. **Nalepnice.** Konzola preuzima nalepnice i pravi jedan PDF za štampu cele ture.
-7. **Predaja.** Pošiljke dobijaju status "Predato kuriru" i od tog trenutka ih konzola sama prati.
+7. **Predaja.** Pošiljke dobijaju status "Kreirano" i od tog trenutka ih konzola sama prati.
 
 Greška u bilo kom koraku ne zaustavlja ostale porudžbine: problematična ostaje u listi sa razlogom, ostale idu dalje.
 

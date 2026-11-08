@@ -1,0 +1,74 @@
+{
+  "status": 200,
+  "body": {
+    "eventPrediction": "Podaci o primaocu: Test***, BEOG***, 06000****\nIZMIŠLJEN TEKST ZA TEST.",
+    "listShipmentHistory": [
+      {
+        "shipmentId": 100000002,
+        "statusCode": 1,
+        "scanCode": 0,
+        "reasonCode": 0,
+        "statusName": "Evidentirano",
+        "statusDate": "2026-01-05",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-05T09:46:43",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000002,
+        "statusCode": -21,
+        "scanCode": 0,
+        "reasonCode": 0,
+        "statusName": "Evidentirano – Na proveri podataka",
+        "statusDate": "2026-01-05",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-05T09:46:43",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000002,
+        "statusCode": 1,
+        "scanCode": 0,
+        "reasonCode": 0,
+        "statusName": "Evidentirano",
+        "statusDate": "2026-01-05",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-05T09:47:06",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000002,
+        "statusCode": 11,
+        "scanCode": 15,
+        "reasonCode": 0,
+        "statusName": "Preuzeto - Popis magacina",
+        "statusDate": "2026-01-05",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-05T16:35:36",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000002,
+        "statusCode": 11,
+        "scanCode": 100,
+        "reasonCode": 145,
+        "statusName": "Preuzeto - Neuspela dostava - Bio na adresi - Ne javlja se na telefon",
+        "statusDate": "2026-01-13",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-13T09:40:39",
+        "timeZone": "GMT+1"
+      },
+      {
+        "shipmentId": 100000002,
+        "statusCode": 21,
+        "scanCode": 2,
+        "reasonCode": 0,
+        "statusName": "Dostavljeno",
+        "statusDate": "2026-01-14",
+        "statusLocation": "Test mesto",
+        "timeStamp": "2026-01-14T14:21:28",
+        "timeZone": "GMT+1"
+      }
+    ]
+  }
+}
