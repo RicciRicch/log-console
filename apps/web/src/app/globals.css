@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+/* Design tokeni dolaze iz DESIGN.md (Dule, Impeccable). Ovo je samo osnova. */
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-variant-numeric: tabular-nums;
+}
