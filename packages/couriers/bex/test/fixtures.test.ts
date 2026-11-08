@@ -65,13 +65,21 @@ describe('BEX fixtures', () => {
     const result = okResult(await run('return-cancelled'));
     const statuses = result.events.map((e) => e.status);
     expect(statuses).toContain('returning');
-    expect(pickCurrentStatus(result.events.slice(0, statuses.indexOf('returning') + 1))).toBe('returning');
+    expect(pickCurrentStatus(result.events.slice(0, statuses.indexOf('returning') + 1))).toBe(
+      'returning',
+    );
     expect(result.currentStatus).toBe('delivered');
     expect(failedAttempts(result)).toBe(1);
   });
 
   it('all events have UTC times in chronological order', async () => {
-    for (const name of ['delivered', 'failed-then-delivered', 'failed-parcel-shop', 'delivered-then-reverted', 'return-cancelled']) {
+    for (const name of [
+      'delivered',
+      'failed-then-delivered',
+      'failed-parcel-shop',
+      'delivered-then-reverted',
+      'return-cancelled',
+    ]) {
       const times = okResult(await run(name)).events.map((e) => e.occurredAt.getTime());
       expect(times, name).toEqual([...times].sort((a, b) => a - b));
     }

@@ -11,7 +11,10 @@ const unauthorized = loadFixture('unauthorized');
 describe('createBexAdapter', () => {
   it('sends the token in X-AUTH-TOKEN and keeps result order', async () => {
     const { fetch, calls } = fakeFetch({ A: delivered, B: notFound, C: delivered });
-    const results = await createBexAdapter({ fetch, sleep: noSleep }).getStatuses(['A', 'B', 'C'], creds);
+    const results = await createBexAdapter({ fetch, sleep: noSleep }).getStatuses(
+      ['A', 'B', 'C'],
+      creds,
+    );
 
     expect(results.map((r) => [r.trackingNumber, r.ok])).toEqual([
       ['A', true],
@@ -28,9 +31,17 @@ describe('createBexAdapter', () => {
       C: notFound,
       D: delivered,
     });
-    const results = await createBexAdapter({ fetch, sleep: noSleep }).getStatuses(['A', 'B', 'C', 'D'], creds);
+    const results = await createBexAdapter({ fetch, sleep: noSleep }).getStatuses(
+      ['A', 'B', 'C', 'D'],
+      creds,
+    );
 
-    expect(results.map((r) => (r.ok ? 'ok' : r.error.kind))).toEqual(['ok', 'invalid_response', 'not_found', 'ok']);
+    expect(results.map((r) => (r.ok ? 'ok' : r.error.kind))).toEqual([
+      'ok',
+      'invalid_response',
+      'not_found',
+      'ok',
+    ]);
   });
 
   it('never runs more than `concurrency` requests at once', async () => {
@@ -46,7 +57,10 @@ describe('createBexAdapter', () => {
     const numbers = Array.from({ length: 10 }, (_, i) => `N${i}`);
     const { fetch } = fakeFetch(Object.fromEntries(numbers.map((n) => [n, slow])));
 
-    const results = await createBexAdapter({ fetch, sleep: noSleep, concurrency: 3 }).getStatuses(numbers, creds);
+    const results = await createBexAdapter({ fetch, sleep: noSleep, concurrency: 3 }).getStatuses(
+      numbers,
+      creds,
+    );
 
     expect(results.every((r) => r.ok)).toBe(true);
     expect(maxInFlight).toBe(3);
@@ -57,7 +71,10 @@ describe('createBexAdapter', () => {
     const { fetch, calls } = fakeFetch({
       A: (attempt) => (attempt < 3 ? { status: 503, body: 'down' } : delivered),
     });
-    const [result] = await createBexAdapter({ fetch, sleep, retryBaseDelayMs: 100 }).getStatuses(['A'], creds);
+    const [result] = await createBexAdapter({ fetch, sleep, retryBaseDelayMs: 100 }).getStatuses(
+      ['A'],
+      creds,
+    );
 
     expect(result?.ok).toBe(true);
     expect(calls).toHaveLength(3);
@@ -71,7 +88,10 @@ describe('createBexAdapter', () => {
         return { status: 429, body: 'slow down' };
       },
     });
-    const [result] = await createBexAdapter({ fetch, sleep: noSleep, maxAttempts: 3 }).getStatuses(['A'], creds);
+    const [result] = await createBexAdapter({ fetch, sleep: noSleep, maxAttempts: 3 }).getStatuses(
+      ['A'],
+      creds,
+    );
 
     expect(calls).toHaveLength(3);
     expect(result).toMatchObject({ ok: false, error: { kind: 'unavailable' } });
@@ -95,7 +115,9 @@ describe('createBexAdapter', () => {
 
   it('logs unknown status codes, keeps the event, and ignores it for the current status', async () => {
     const warn = vi.fn();
-    const body = structuredClone(delivered.body) as { listShipmentHistory: Record<string, unknown>[] };
+    const body = structuredClone(delivered.body) as {
+      listShipmentHistory: Record<string, unknown>[];
+    };
     body.listShipmentHistory.push({
       ...body.listShipmentHistory.at(-1),
       statusCode: 99,
@@ -104,7 +126,11 @@ describe('createBexAdapter', () => {
     });
     const { fetch } = fakeFetch({ A: { status: 200, body } });
 
-    const [result] = await createBexAdapter({ fetch, sleep: noSleep, logger: { warn } }).getStatuses(['A'], creds);
+    const [result] = await createBexAdapter({
+      fetch,
+      sleep: noSleep,
+      logger: { warn },
+    }).getStatuses(['A'], creds);
 
     if (!result?.ok) throw new Error('expected ok');
     expect(result.events.at(-1)).toMatchObject({ rawStatus: '99', status: null });
@@ -114,7 +140,9 @@ describe('createBexAdapter', () => {
   });
 
   it('unparseable event time makes the shipment invalid_response', async () => {
-    const body = structuredClone(delivered.body) as { listShipmentHistory: Record<string, unknown>[] };
+    const body = structuredClone(delivered.body) as {
+      listShipmentHistory: Record<string, unknown>[];
+    };
     body.listShipmentHistory[0]!.timeZone = 'Europe/Belgrade';
     const { fetch } = fakeFetch({ A: { status: 200, body } });
 
@@ -133,7 +161,9 @@ describe('createBexAdapter', () => {
     controller.abort();
     const { fetch } = fakeFetch({ A: delivered });
     await expect(
-      createBexAdapter({ fetch, sleep: noSleep }).getStatuses(['A'], creds, { signal: controller.signal }),
+      createBexAdapter({ fetch, sleep: noSleep }).getStatuses(['A'], creds, {
+        signal: controller.signal,
+      }),
     ).rejects.toThrow();
   });
 });
