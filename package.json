@@ -13,7 +13,7 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:test": "supabase test db",
-    "db:types": "supabase gen types typescript --local > packages/shared/src/db.types.ts",
+    "db:types": "supabase gen types typescript --linked --schema public > packages/shared/src/db.types.ts && prettier --write packages/shared/src/db.types.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
