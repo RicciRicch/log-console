@@ -61,7 +61,8 @@ select ok(
                  'public.memberships'::regclass, 'public.invitations'::regclass)),
   'RLS je uključen na tenants, tenant_settings, memberships, invitations');
 
-select is((select count(*)::int from public.tenant_settings), 2,
+select is((select count(*)::int from public.tenant_settings
+           where tenant_id in (select v from ids where k in ('tenant_a', 'tenant_b'))), 2,
   'svaka nova firma dobija podešavanja');
 
 -- ---------------------------------------------------------------------------
