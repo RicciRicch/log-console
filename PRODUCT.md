@@ -16,7 +16,7 @@ web
 
 - **Operater** (glavni korisnik): zaposleni u web shopu, magacinu ili fulfillment centru. Ceo dan radi u konzoli na desktop računaru, često sa velikim brojem pošiljki (desetine do hiljade dnevno). Hoće da brzo vidi šta je zapelo i da reaguje.
 - **Administrator firme**: vlasnik ili šef. Gleda novac (otkupe), odobrava isplate, upravlja nalozima.
-- **Pod-klijent** (kasnije): klijent fulfillment centra, samo pregled.
+- **Klijent** (firma čije pakete šaljemo, npr. web shop za koji radi operater): na svojoj strani vidi samo svoje pošiljke i otkupe, samo pregled. Vlasnik proizvoda želi ovo u MVP-u (predlog ADR-010, čeka potvrdu tima). Ista vizuelna celina kao operaterska strana, ali mirnija i jednostavnija.
 
 ## Product Purpose
 
