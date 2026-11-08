@@ -17,6 +17,7 @@ Cela ideja: [`Konzola za praćenje pošiljki — ideja i workflow (iz PDF-a).md`
 | [docs/TEAM.md](./docs/TEAM.md) | Ko šta radi i kako se delovi spajaju |
 | [docs/WORKFLOW.md](./docs/WORKFLOW.md) | Git, rad sa Claude Code-om, rad sa Impeccable-om |
 | [docs/DECISIONS.md](./docs/DECISIONS.md) | Važne odluke i zašto su donete |
+| [docs/PILOT-PRIMERI.md](./docs/PILOT-PRIMERI.md) | Struktura stvarnih fajlova pilot firme (bez ličnih podataka) |
 | [docs/features/](./docs/features/README.md) | Jedan fajl po feature-u + tabla sa statusima |
 
 ## Prvi koraci

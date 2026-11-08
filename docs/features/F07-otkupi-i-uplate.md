@@ -17,8 +17,11 @@ Za svaki otkup se zna gde je novac: kod kupca, kod kurira ili isplaćen klijentu
 - [ ] Specifikacija sadrži broj pošiljke, primaoca, iznos i ukupno
 
 ## Tehničke beleške
-- `cod_payments`: jedan red po stavci iz izveštaja kurira. Unique ključ sprečava duplikate pri ponovnom uvozu (predlog u `ARCHITECTURE.md`, potvrditi kad stigne primer izveštaja).
+- Format BEX specifikacije je opisan u [`docs/PILOT-PRIMERI.md`](../PILOT-PRIMERI.md). Prvi red je spojena ćelija sa nazivima, parser ga preskače i čita kolone po poziciji.
+- `cod_payments`: jedan red po stavci iz izveštaja kurira. Otkup se ne isplaćuje delimično, pa je unique ključ `(tenant_id, courier_code, tracking_number)`.
+- Iznos iz izveštaja se poredi sa `shipments.cod_amount`. Razlika ne ruši sparivanje, nego ide u `match_error`.
 - Nespareni red ostaje u `cod_payments` sa `shipment_id = null` i razlogom u `match_error`.
+- Oznaka klijenta iz kolone "Napomena klijenta" se čuva (`client_ref`), da bi specifikacija kasnije mogla po klijentu fulfillment centra.
 
 ## Zadaci
 - [ ] Tabele `cod_payments`, `cod_items`, `payouts`
@@ -28,8 +31,9 @@ Za svaki otkup se zna gde je novac: kod kupca, kod kurira ili isplaćen klijentu
 - [ ] Generisanje specifikacije (PDF + Excel)
 
 ## Otvorena pitanja
-- Kako izgleda BEX izveštaj o uplatama? Treba primer.
-- Da li se otkup ikad isplaćuje delimično?
+- ~~Kako izgleda BEX izveštaj o uplatama?~~ Primer stigao, vidi `docs/PILOT-PRIMERI.md`.
+- ~~Da li se otkup ikad isplaćuje delimično?~~ Ne.
+- Da li specifikacija za klijenta treba da bude po klijentu fulfillment centra (npr. samo `NR`)? Verovatno da, ali pod-klijenti nisu u MVP-u.
 
 ## Dnevnik
 | Datum | Ko | Šta |
