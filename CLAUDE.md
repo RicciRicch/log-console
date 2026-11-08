@@ -38,6 +38,7 @@ supabase db reset # migracije + seed
 6. **Kod i nazivi u kodu na engleskom, UI tekst na srpskom (latinica).**
 7. **Next.js:** pristup bazi i tajnama samo u Server Components, Server Actions i Route Handlers. Fajl sa tajnama počinje sa `import 'server-only'`. Klijentske komponente ne uvoze serverski kod.
 8. **Git:** pravila su u `CONTRIBUTING.md`. Nikad ne dodaj `Co-Authored-By`, "Generated with Claude" ili bilo kakvu Claude atribuciju u commit poruke i PR opise.
+9. **PR samo kad je faza skroz gotova.** Ne otvaraj PR za svaku granu, sitnicu ili predlog. Radi na jednoj grani po fazi (npr. `feat/M0-temelj`), commit-uj i push-uj koliko treba (CI radi na svakom push-u), a PR otvori tek kad je ceo deo faze gotov i proveren. Predlozi i pitanja za tim idu u razgovor, ne kao PR.
 
 ## Kako radiš na zadatku
 

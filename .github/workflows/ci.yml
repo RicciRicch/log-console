@@ -2,8 +2,9 @@ name: CI
 
 on:
   pull_request:
+  # Na svakom push-u, i bez PR-a (PR se otvara tek kad je faza gotova)
   push:
-    branches: [main]
+    branches: ['**']
 
 concurrency:
   group: ci-${{ github.ref }}
