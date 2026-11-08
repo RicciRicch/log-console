@@ -33,7 +33,8 @@ Konzola sama, bez klikanja, drži statuse svih aktivnih pošiljki ažurnim i ču
 
 ## Otvorena pitanja
 - Da li je 60 minuta dovoljno ili pilot traži češće?
-- Da li BEX API vraća vreme svakog događaja ili samo trenutni status? Ako samo trenutni, dva neuspela pokušaja sa istim razlogom između dva pollinga se ne mogu razlikovati.
+- ~~Da li BEX API vraća vreme svakog događaja?~~ Da: `shipmentHistory` vraća celu istoriju sa `timeStamp` (vidi F03). Ostaje otvoreno kako se u istoriji vidi neuspeo pokušaj dostave.
+- BEX nema batch endpoint, pa je jedan zahtev po pošiljci. Posao po firmi mora da ograniči istovremene zahteve (limit čekamo od BEX-a).
 
 ## Dnevnik
 | Datum | Ko | Šta |
