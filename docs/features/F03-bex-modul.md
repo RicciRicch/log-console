@@ -1,6 +1,6 @@
 # F03: BEX modul
 
-**Status:** Review · **Vlasnik:** Velja · **Faza:** M1 · **Zavisi od:** F00
+**Status:** Gotovo · **Vlasnik:** Velja · **Faza:** M1 · **Zavisi od:** F00
 
 ## Cilj
 Prvi kurirski modul: za listu brojeva pošiljki vraća trenutni status i istoriju iz BEX API-ja i prevodi ih u naš jedinstveni status.
@@ -16,7 +16,7 @@ Prvi kurirski modul: za listu brojeva pošiljki vraća trenutni status i istorij
 - [x] Trenutni status se računa iz poslednjeg događaja po vremenu, ne iz najvišeg statusa (BEX ume da vrati "Dostavljeno" pa ga ispravi)
 - [x] Greška za jednu pošiljku (400 „ne postoji“, timeout) ne ruši ostale u istom pozivu
 - [x] Testovi sa snimljenim BEX odgovorima (bez pravog API-ja u CI-ju)
-- [ ] Ključ se čita samo iz Vault-a, nikad se ne loguje (adapter prima ključ kao parametar i ne loguje ga; čitanje iz Vault-a je u worker-u, F04)
+- [x] Adapter ne loguje ključ (test proverava). Čitanje ključa iz Vault-a prebačeno u F04, jer ga radi worker.
 
 ## Tehničke beleške
 
@@ -133,3 +133,4 @@ Za tim:
 | 08.11.2026. | Velja | Pročitana javna BEX API dokumentacija, upisani endpoint, šifre i pitanja za BEX |
 | 08.11.2026. | Velja | Snimljeno 30 stvarnih pošiljki: potvrđeno kako izgleda neuspela dostava, nađeno da "Dostavljeno" nije konačno, dodati fixtures |
 | 08.11.2026. | Velja | Kod: `@konzola/shared`, `@konzola/couriers-core`, `@konzola/courier-bex` sa testovima; provereno nad pravim BEX API-jem |
+| 08.11.2026. | Velja | Merge-ovano (#12). Gotovo; čitanje ključa iz Vault-a prebačeno u F04 |
